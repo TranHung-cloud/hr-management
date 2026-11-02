@@ -1,0 +1,1918 @@
+{
+ "url": "http://127.0.0.1:3000/interviews",
+ "at": "2026-11-02T10:45:56.476Z",
+ "allow": [
+  "palette-cream",
+  "no-data-hue"
+ ],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.84,
+    0.69,
+    0.63
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1923,
+     "screens": 2.1,
+     "words": 943,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 82,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 28,
+     "vw": 1.9,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 122,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "lines": 1,
+     "size": 28,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "words": 6,
+      "chars": 29,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Segoe UI",
+      "weight": 650,
+      "tracking": -0.036,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 122,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      23,
+      28
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 11,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 3.6
+     },
+     "measureChars": 34,
+     "max": {
+      "size": 28,
+      "vw": 1.9,
+      "font": "Segoe UI",
+      "text": "Mỗi ứng viên, một hành trình"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.01,
+     "smallText": 119
+    },
+    "eyebrows": [
+     {
+      "text": "Tuyển dụng / Quy trình phỏng vấn",
+      "above": "Mỗi ứng viên, một hành trình.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 98
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f7f0e6",
+     "bodyBgHsl": {
+      "h": 35,
+      "s": 0.52,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#efeadd",
+       "top": 328,
+       "hsl": {
+        "h": 43,
+        "s": 0.36,
+        "l": 0.9
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#858b78",
+       "share": 0.2
+      },
+      {
+       "color": "#253633",
+       "share": 0.12
+      },
+      {
+       "color": "#939982",
+       "share": 0.11
+      },
+      {
+       "color": "#9a9c8b",
+       "share": 0.09
+      },
+      {
+       "color": "#7c856f",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#ebf0e9",
+      "hsl": {
+       "h": 103,
+       "s": 0.19,
+       "l": 0.93
+      },
+      "fg": "#2c655b"
+     },
+     "lowContrast": [
+      {
+       "text": "RecruitHR · Cùng xây dựng đội ngũ tốt hơ",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#989a8b",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "Bản xem trước giao diện",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#989a8b",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "Kéo thả thẻ hoặc chọn giai đoạn trên từn",
+       "ratio": 2.7,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#939783",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "PV-009",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#969b87",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "thanhtung@example.com",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#9a9c8b",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "04/11/2026",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#90967e",
+       "bg": "#f7f5ec"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 7,
+     "height": 43,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Quy trình phỏng vấn",
+      "Lên lịch phỏng vấn"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "aside.sidebar 236px",
+      "header.topbar 1204px"
+     ],
+     "outlinedBoxes": 36,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 21,
+     "boxRadius": 7,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 5,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 328
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 394
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 394
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 394
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 900,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "__nextjs-geist"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 1923,
+    "margins": {
+     "left": 287,
+     "right": 32
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "size": 28,
+      "top": 122,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 268,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.03,
+    "voidBox": {
+     "x": 900,
+     "y": 120,
+     "w": 240,
+     "h": 180
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f7f0e6",
+    "sidebar": {
+     "w": 236,
+     "tag": "aside",
+     "links": 5,
+     "share": 0.16
+    },
+    "topbar": {
+     "h": 68
+    },
+    "canvas": {
+     "left": 58,
+     "right": -148
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 28,
+     "vw": 1.9,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 122,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 6,
+     "firstScreen": 6,
+     "ragged": [
+      {
+       "diff": 425,
+       "top": 328
+      },
+      {
+       "diff": 443,
+       "top": 328
+      },
+      {
+       "diff": 551,
+       "top": 328
+      },
+      {
+       "diff": 551,
+       "top": 328
+      },
+      {
+       "diff": 569,
+       "top": 328
+      },
+      {
+       "diff": 569,
+       "top": 328
+      }
+     ],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 43,
+     "radii": [
+      [
+       7,
+       15
+      ],
+      [
+       5,
+       15
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       9,
+       5
+      ],
+      [
+       8,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 170,
+       "size": 37,
+       "radius": "11px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 1,
+     "tabularShare": 0,
+     "kpiMax": 11
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [
+     "example.com"
+    ],
+    "type": {
+     "under13": 0.99,
+     "tiny": 19,
+     "tinySamples": [
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px"
+     ],
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      23,
+      28
+     ]
+    },
+    "title": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "size": 28,
+     "top": 122
+    },
+    "colourShare": 0.003
+   },
+   "consoleErrors": [
+    "Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math"
+   ]
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.8,
+    0.69
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1959,
+     "screens": 1.9,
+     "words": 943,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 82,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 28,
+     "vw": 3.6,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 109,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "lines": 1,
+     "size": 28,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "words": 6,
+      "chars": 29,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Segoe UI",
+      "weight": 650,
+      "tracking": -0.036,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.48,
+      "top": 109,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      23,
+      28
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 11,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 3.6
+     },
+     "measureChars": 34,
+     "max": {
+      "size": 28,
+      "vw": 3.6,
+      "font": "Segoe UI",
+      "text": "Mỗi ứng viên, một hành trình"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.01,
+     "smallText": 113
+    },
+    "eyebrows": [
+     {
+      "text": "Tuyển dụng / Quy trình phỏng vấn",
+      "above": "Mỗi ứng viên, một hành trình.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 85
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f7f0e6",
+     "bodyBgHsl": {
+      "h": 35,
+      "s": 0.52,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fffdf9",
+       "top": 0,
+       "hsl": {
+        "h": 40,
+        "s": 1,
+        "l": 0.99
+       }
+      },
+      {
+       "color": "#efeadd",
+       "top": 361,
+       "hsl": {
+        "h": 43,
+        "s": 0.36,
+        "l": 0.9
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#858b78",
+       "share": 0.2
+      },
+      {
+       "color": "#253633",
+       "share": 0.12
+      },
+      {
+       "color": "#939982",
+       "share": 0.11
+      },
+      {
+       "color": "#9a9c8b",
+       "share": 0.09
+      },
+      {
+       "color": "#7c856f",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#ebf0e9",
+      "hsl": {
+       "h": 103,
+       "s": 0.19,
+       "l": 0.93
+      },
+      "fg": "#2c655b"
+     },
+     "lowContrast": [
+      {
+       "text": "RecruitHR · Cùng xây dựng đội ngũ tốt hơ",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#989a8b",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "Bản xem trước giao diện",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#989a8b",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "Kéo thả thẻ hoặc chọn giai đoạn trên từn",
+       "ratio": 2.7,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#939783",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "PV-009",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#969b87",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "thanhtung@example.com",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#9a9c8b",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "04/11/2026",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#90967e",
+       "bg": "#f7f5ec"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 7,
+     "height": 43,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Quy trình phỏng vấn",
+      "Lên lịch phỏng vấn"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "aside.sidebar 260px",
+      "header.topbar 768px"
+     ],
+     "outlinedBoxes": 37,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 22,
+     "boxRadius": 7,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 5,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 361
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 427
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 427
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 427
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 1024,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "__nextjs-geist"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1959,
+    "margins": {
+     "left": 25,
+     "right": 25
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "size": 28,
+      "top": 109,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 25,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f7f0e6",
+    "sidebar": {
+     "w": 260,
+     "tag": "aside",
+     "links": 5,
+     "share": 0.34
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 64,
+     "right": -583
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 28,
+     "vw": 3.6,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 109,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 7,
+     "firstScreen": 7,
+     "ragged": [
+      {
+       "diff": 424,
+       "top": 361
+      },
+      {
+       "diff": 443,
+       "top": 361
+      },
+      {
+       "diff": 551,
+       "top": 361
+      },
+      {
+       "diff": 551,
+       "top": 361
+      },
+      {
+       "diff": 570,
+       "top": 361
+      },
+      {
+       "diff": 570,
+       "top": 361
+      }
+     ],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 44,
+     "radii": [
+      [
+       7,
+       15
+      ],
+      [
+       5,
+       15
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       9,
+       5
+      ],
+      [
+       8,
+       2
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 170,
+       "size": 37,
+       "radius": "11px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 1,
+     "tabularShare": 0,
+     "kpiMax": 11
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [
+     "example.com"
+    ],
+    "type": {
+     "under13": 0.97,
+     "tiny": 19,
+     "tinySamples": [
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px"
+     ],
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      23,
+      28
+     ]
+    },
+    "title": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "size": 28,
+     "top": 109
+    },
+    "colourShare": 0.007
+   },
+   "consoleErrors": [
+    "Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math"
+   ]
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.83,
+    0.78,
+    0.5
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 2049,
+     "screens": 2.4,
+     "words": 928,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 82,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 24,
+     "vw": 6.2,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 103,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "lines": 1,
+     "size": 24,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "RecruitHR Tuyển dụng & nhân sự",
+      "words": 6,
+      "chars": 30,
+      "lines": 2,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": -0.039,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 30,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "words": 6,
+      "chars": 29,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Segoe UI",
+      "weight": 650,
+      "tracking": -0.042,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.8,
+      "top": 103,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 6,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      23,
+      24
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 11,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 3.6
+     },
+     "measureChars": 37,
+     "max": {
+      "size": 24,
+      "vw": 6.2,
+      "font": "Segoe UI",
+      "text": "Mỗi ứng viên, một hành trình"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.01,
+     "smallText": 111
+    },
+    "eyebrows": [
+     {
+      "text": "Tuyển dụng / Quy trình phỏng vấn",
+      "above": "Mỗi ứng viên, một hành trình.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 79
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f7f0e6",
+     "bodyBgHsl": {
+      "h": 35,
+      "s": 0.52,
+      "l": 0.94
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fffdf9",
+       "top": 0,
+       "hsl": {
+        "h": 40,
+        "s": 1,
+        "l": 0.99
+       }
+      },
+      {
+       "color": "#efeadd",
+       "top": 456,
+       "hsl": {
+        "h": 43,
+        "s": 0.36,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#fffefa",
+       "top": 1197,
+       "hsl": {
+        "h": 48,
+        "s": 1,
+        "l": 0.99
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#858b78",
+       "share": 0.21
+      },
+      {
+       "color": "#253633",
+       "share": 0.12
+      },
+      {
+       "color": "#939982",
+       "share": 0.12
+      },
+      {
+       "color": "#9a9c8b",
+       "share": 0.09
+      },
+      {
+       "color": "#7c856f",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#ebf0e9",
+      "hsl": {
+       "h": 103,
+       "s": 0.19,
+       "l": 0.93
+      },
+      "fg": "#2c655b"
+     },
+     "lowContrast": [
+      {
+       "text": "RecruitHR · Cùng xây dựng đội ngũ tốt hơ",
+       "ratio": 2.5,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#989a8b",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "Kéo thả thẻ hoặc chọn giai đoạn trên từn",
+       "ratio": 2.7,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#939783",
+       "bg": "#f7f0e6"
+      },
+      {
+       "text": "PV-009",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#969b87",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "thanhtung@example.com",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#9a9c8b",
+       "bg": "#fffefa"
+      },
+      {
+       "text": "04/11/2026",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#90967e",
+       "bg": "#f7f5ec"
+      },
+      {
+       "text": "PV-011",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#969b87",
+       "bg": "#fffefa"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 7,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Quy trình phỏng vấn",
+      "Lên lịch phỏng vấn"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "aside.sidebar 260px",
+      "header.topbar 390px"
+     ],
+     "outlinedBoxes": 37,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 22,
+     "boxRadius": 7,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 5,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 456
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 522
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 522
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 522
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 844,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "__nextjs-geist"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 2049,
+    "margins": {
+     "left": 16,
+     "right": 0
+    },
+    "sections": [
+     {
+      "sel": "div.page-heading",
+      "tag": "div",
+      "top": 79,
+      "height": 139,
+      "words": 29,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Mỗi ứng viên, một hành trình",
+       "size": 24,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 68,
+      "textLeft": 16,
+      "textRight": 68,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.pipeline-toolbar",
+      "tag": "div",
+      "top": 238,
+      "height": 151,
+      "words": 8,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 29,
+      "right": 29,
+      "textLeft": 29,
+      "textRight": 41,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.kanban-column",
+      "tag": "section",
+      "top": 456,
+      "height": 1079,
+      "words": 69,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Đã lọc CV",
+       "size": 11,
+       "tag": "h2"
+      },
+      "left": 42,
+      "right": 120,
+      "textLeft": 42,
+      "textRight": 126,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.kanban-column",
+      "tag": "section",
+      "top": 456,
+      "height": 1504,
+      "words": 102,
+      "media": 0,
+      "middle": 28,
+      "heading": {
+       "text": "Phỏng vấn HR",
+       "size": 11,
+       "tag": "h2"
+      },
+      "left": 335,
+      "right": 0,
+      "textLeft": 335,
+      "textRight": 0,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.kanban-column",
+      "tag": "section",
+      "top": 456,
+      "height": 1523,
+      "words": 0,
+      "media": 0,
+      "middle": 321,
+      "heading": null,
+      "left": 711,
+      "right": 0,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.kanban-column",
+      "tag": "section",
+      "top": 456,
+      "height": 953,
+      "words": 0,
+      "media": 0,
+      "middle": 614,
+      "heading": null,
+      "left": 1004,
+      "right": 0,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.kanban-column",
+      "tag": "section",
+      "top": 456,
+      "height": 953,
+      "words": 0,
+      "media": 0,
+      "middle": 907,
+      "heading": null,
+      "left": 1297,
+      "right": 0,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Mỗi ứng viên, một hành trình.",
+      "size": 24,
+      "top": 103,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [
+     {
+      "text": "Phỏng vấn HR",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "Phạm Thu Hà",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "UI/UX Designer",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "thuha@example.com",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "Chờ phỏng vấn",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "Trực tiếp",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "10:30",
+      "side": "right",
+      "px": 0
+     },
+     {
+      "text": "02/11/2026",
+      "side": "right",
+      "px": 0
+     }
+    ],
+    "edges": [
+     {
+      "x": 16,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#f7f0e6",
+    "sidebar": null,
+    "topbar": {
+     "h": 56
+    },
+    "canvas": {
+     "left": 28,
+     "right": -1046
+    },
+    "hero": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "words": 6,
+     "chars": 29,
+     "lines": 1,
+     "size": 24,
+     "vw": 6.2,
+     "font": "Segoe UI",
+     "weight": 650,
+     "tracking": -0.04,
+     "leading": 1.3,
+     "top": 103,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 7,
+     "firstScreen": 7,
+     "ragged": [
+      {
+       "diff": 425,
+       "top": 456
+      },
+      {
+       "diff": 443,
+       "top": 456
+      },
+      {
+       "diff": 552,
+       "top": 456
+      },
+      {
+       "diff": 552,
+       "top": 456
+      },
+      {
+       "diff": 570,
+       "top": 456
+      },
+      {
+       "diff": 570,
+       "top": 456
+      }
+     ],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 44,
+     "radii": [
+      [
+       7,
+       15
+      ],
+      [
+       5,
+       15
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       9,
+       5
+      ],
+      [
+       8,
+       2
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 170,
+       "size": 37,
+       "radius": "11px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 1,
+     "tabularShare": 0,
+     "kpiMax": 11
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [
+     "example.com"
+    ],
+    "type": {
+     "under13": 0.97,
+     "tiny": 19,
+     "tinySamples": [
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px",
+      "Sau 9px"
+     ],
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      23,
+      24
+     ]
+    },
+    "title": {
+     "text": "Mỗi ứng viên, một hành trình.",
+     "size": 24,
+     "top": 103
+    },
+    "colourShare": 0.013
+   },
+   "consoleErrors": [
+    "Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Unreadable text: \"RecruitHR · Cùng xây dựng đội ngũ tốt hơ\" 2.5:1 (#989a8b on #f7f0e6); \"Bản xem trước giao diện\" 2.5:1 (#989a8b on #f7f0e6)",
+   "fix": "Raise contrast to at least 4.5:1 for text, 3:1 for large display.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "radius-mix",
+   "width": 1440,
+   "message": "Panels use 4 corner radii (7, 5, 0, 9px).",
+   "fix": "One radius for panels, one for controls, full round only for pills and avatars.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "placeholder-data",
+   "width": 1440,
+   "message": "Placeholder data on screen: example.com.",
+   "fix": "Use believable data for this product: real-looking names, amounts that add up, dates in order, units on every figure.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "19 text blocks under 11px: Sau 9px, Sau 9px, Sau 9px, Sau 9px.",
+   "fix": "Nothing below 11px; secondary text 12px, data 13–14px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "ragged-row",
+   "width": 1440,
+   "message": "6 pair(s) of cards in one row end at different heights (by 425px, 443px, 551px).",
+   "fix": "Cards that share a row share a bottom edge: balance them by their content (the same number of rows, a block of similar height beside it), or stack them. In testing, ragged rows were marked down every time.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "edge-text",
+   "width": 390,
+   "message": "8 text block(s) sit within 12px of the screen edge: \"Phỏng vấn HR\" (0px from the right); \"Phạm Thu Hà\" (0px from the right); \"UI/UX Designer\" (0px from the right); \"thuha@example.com\" (0px from the right)",
+   "fix": "Keep text inside the page margin (16–20px). Only display type deliberately bled past the edge may touch it."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\desktop-fold.jpg",
+   "pages": [
+    "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\tablet-fold.jpg",
+   "pages": [
+    "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\mobile-fold.jpg",
+   "pages": [
+    "D:\\sendhelp\\HTQL sản xuất\\New folder\\hr-management\\.taste-skill\\pipeline\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
