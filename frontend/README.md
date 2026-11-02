@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RecruitHR — bản thiết kế giao diện
 
-## Getting Started
-
-First, run the development server:
+Chạy giao diện:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Các màn hình
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/`: tổng quan số liệu, lịch hẹn sắp tới và phân bố hồ sơ theo giai đoạn.
+- `/interviews`: Kanban 5 giai đoạn, tìm kiếm, lọc vị trí, kéo thả hoặc chọn giai đoạn bằng dropdown.
+- `/interviews/schedule`: lịch phỏng vấn dạng danh sách, lọc ngày, tìm kiếm, nhóm sắp tới/hôm nay/hoàn tất.
+- `/interviews/PV-001`: ví dụ chi tiết, thông tin ứng viên, lịch hẹn, nhận xét, kết quả và lịch sử hoạt động.
 
-## Learn More
+Có thể lên lịch hoặc chỉnh lịch từ các màn hình. Form kiểm tra giờ kết thúc và trùng lịch người phỏng vấn.
 
-To learn more about Next.js, take a look at the following resources:
+## Phạm vi bản xem trước
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Giao diện tiếng Việt, tông kem–xanh theo ảnh tham khảo. Dữ liệu minh họa nằm trong `lib/recruitment-data.ts`; ngày tham chiếu cố định là 02/11/2026. Số liệu dashboard tính từ dữ liệu mẫu. Email dùng miền example.com dành cho ví dụ.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+State dùng React Context trong `components/recruitment/provider.tsx`: điều hướng bằng liên kết nội bộ giữ thay đổi; tải lại trang đặt lại dữ liệu. Chưa kết nối backend, chưa xác thực, chưa gửi email hoặc tạo cuộc họp trực tuyến. Các mục chưa thiết kế được đánh dấu “Sau”.
 
-## Deploy on Vercel
+Các kiểu TypeScript trong `types/recruitment.ts` là view model giao diện, không thay đổi CDM đã chốt. Backend và database chưa được sửa.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Kiểm tra
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
