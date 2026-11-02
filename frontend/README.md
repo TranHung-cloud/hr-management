@@ -7,14 +7,14 @@ npm install
 npm run dev
 ```
 
-Mở http://localhost:3000.
+Mở http://localhost:3000/admin/dashboard. Đường dẫn `/` và `/admin` tự chuyển đến dashboard.
 
 ## Các màn hình
 
-- `/`: tổng quan số liệu, lịch hẹn sắp tới và phân bố hồ sơ theo giai đoạn.
-- `/interviews`: Kanban 5 giai đoạn, tìm kiếm, lọc vị trí, kéo thả hoặc chọn giai đoạn bằng dropdown.
-- `/interviews/schedule`: lịch phỏng vấn dạng danh sách, lọc ngày, tìm kiếm, nhóm sắp tới/hôm nay/hoàn tất.
-- `/interviews/PV-001`: ví dụ chi tiết, thông tin ứng viên, lịch hẹn, nhận xét, kết quả và lịch sử hoạt động.
+- `/admin/dashboard`: tổng quan số liệu, lịch hẹn sắp tới và phân bố hồ sơ theo giai đoạn.
+- `/admin/interviews`: Kanban 5 giai đoạn, tìm kiếm, lọc vị trí, kéo thả hoặc chọn giai đoạn bằng dropdown.
+- `/admin/interviews/schedule`: lịch phỏng vấn dạng danh sách, lọc ngày, tìm kiếm, nhóm sắp tới/hôm nay/hoàn tất.
+- `/admin/interviews/PV-001`: ví dụ chi tiết, thông tin ứng viên, lịch hẹn, nhận xét, kết quả và lịch sử hoạt động.
 
 Có thể lên lịch hoặc chỉnh lịch từ các màn hình. Form kiểm tra giờ kết thúc và trùng lịch người phỏng vấn.
 

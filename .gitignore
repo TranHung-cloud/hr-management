@@ -59,3 +59,8 @@ desktop.ini
 *.tmp
 *.swp
 *.bak
+
+.taste-skill/
+
+frontend/AGENTS.md
+frontend/README.md
