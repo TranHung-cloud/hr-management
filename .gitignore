@@ -13,6 +13,7 @@ backend/target/
 backend/.mvn-cache/
 backend/*.log
 backend/logs/
+backend/config/application-local.properties
 
 # ==============================
 # Next.js

@@ -1,27 +1,41 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { CalendarDays, Search, Plus, Video, MapPin, ArrowUpRight, GripVertical, LayoutGrid, List, MessageSquareText } from "lucide-react";
+import { Plus, Search, CalendarDays, ArrowUpRight, GripVertical } from "lucide-react";
+import { api, useApi } from "@/hooks/use-api";
 import { useRecruitment } from "@/components/recruitment/provider";
-import { Avatar, Empty, Status } from "@/components/recruitment/shared";
+import { Avatar, Empty, LoadState, Pagination, Status } from "@/components/recruitment/shared";
 import { ScheduleForm } from "@/components/recruitment/schedule-form";
-import { jobs, stages, dateLabel } from "@/lib/recruitment-data";
-import type { StageId } from "@/types/recruitment";
+import { dateLabel, timeLabel, detailHref, stageColors, applicationLabels } from "@/lib/recruitment";
+import type { Application, Lookups, PageResult } from "@/types/api";
+
 export default function PipelinePage() {
-  const { interviews, updateInterview, notify } = useRecruitment();
-  const [query, setQuery] = useState(""); const [job, setJob] = useState(""); const [schedule, setSchedule] = useState(false); const [dragOver, setDragOver] = useState<StageId | null>(null); const [dragging, setDragging] = useState<string | null>(null);
-  const filtered = interviews.filter(i => (!job || i.job === job) && `${i.name} ${i.email} ${i.job}`.toLocaleLowerCase("vi").includes(query.toLocaleLowerCase("vi")));
-  function move(id: string, stage: StageId) { const item = interviews.find(i => i.id === id); if (!item || item.stage === stage) return; updateInterview(id, { stage, status: stage === "hired" ? "passed" : "scheduled", history: [...item.history, { title: `Chuyển sang ${stages.find(s => s.id === stage)!.name}`, date: "02/11/2026 · Phiên xem trước", note: "Nguyễn Minh Tuấn cập nhật giai đoạn tuyển dụng." }] }); notify(`Đã chuyển ${item.name} sang ${stages.find(s => s.id === stage)!.name}.`); }
-  return <><div className="page-heading"><div><div className="eyebrow">Tuyển dụng / Quy trình phỏng vấn</div><h1>Mỗi ứng viên, một hành trình<span className="heading-dot">.</span></h1><p>Quản lý các vòng phỏng vấn trong cùng một không gian.</p></div><button className="button primary" onClick={() => setSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
-    <div className="pipeline-toolbar"><label className="search-field"><Search size={17} /><input placeholder="Tìm tên, email, vị trí..." aria-label="Tìm ứng viên" value={query} onChange={e => setQuery(e.target.value)} /></label><select className="filter-select" aria-label="Lọc vị trí tuyển dụng" value={job} onChange={e => setJob(e.target.value)}><option value="">Tất cả vị trí</option>{jobs.map(j => <option key={j.title}>{j.title}</option>)}</select><span className="result-count"><strong>{filtered.length}</strong> hồ sơ ứng tuyển</span><div className="view-switch"><span className="current-view"><LayoutGrid size={16} />Kanban</span><Link href="/admin/interviews/schedule"><List size={16} />Danh sách</Link></div></div>
-    <div className="board-caption"><span><span className="tiny-dot" />{stages.length} giai đoạn tuyển dụng</span><span>Kéo thả thẻ hoặc chọn giai đoạn trên từng hồ sơ</span></div>
-    <div className="kanban-board">{stages.map(stage => {
-      const rows = filtered.filter(i => i.stage === stage.id);
-      return <section className={`kanban-column ${dragOver === stage.id ? "drop-active" : ""}`} key={stage.id} onDragOver={e => { e.preventDefault(); setDragOver(stage.id); }} onDragLeave={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragOver(null); }} onDrop={e => { e.preventDefault(); move(e.dataTransfer.getData("text/plain"), stage.id); setDragging(null); setDragOver(null); }}>
-        <div className="column-heading" style={{ borderBottomColor: stage.color }}><span className="stage-dot" style={{ background: stage.color }} /><h2>{stage.name}</h2><span className="column-count">{rows.length}</span></div>
-        <div className="column-cards">{rows.map((i) => <article className={`kanban-card ${dragging === i.id ? "dragging" : ""}`} key={i.id} draggable onDragStart={e => { e.dataTransfer.setData("text/plain", i.id); e.dataTransfer.effectAllowed = "move"; setDragging(i.id); }} onDragEnd={() => { setDragging(null); setDragOver(null); }}>
-          <div className="card-topline"><span className="card-id">{i.id}</span><GripVertical size={15} aria-label="Kéo để chuyển giai đoạn" /></div><Link href={`/admin/interviews/${i.id}`} className="card-person"><Avatar name={i.name} index={interviews.indexOf(i)} /><span><strong>{i.name}</strong><small>{i.job}</small></span><ArrowUpRight size={14} /></Link><a className="card-email" href={`mailto:${i.email}`}>{i.email}</a><Status status={i.status} /><div className="card-schedule"><span>{i.method === "Trực tuyến" ? <Video size={13} /> : <MapPin size={13} />}{i.method}</span><span><CalendarDays size={13} />{i.time} – {i.endTime}<small>{dateLabel(i.date)}</small></span></div>{i.feedback && <div className="card-feedback"><span><MessageSquareText size={12} />Nhận xét phỏng vấn</span><p>{i.feedback}</p></div>}<div className="card-bottom"><span>Người phỏng vấn</span><Avatar name={i.interviewer} index={2} /></div><label className="move-control"><span>Giai đoạn</span><select aria-label={`Chuyển giai đoạn ${i.name}`} value={i.stage} onChange={e => move(i.id, e.target.value as StageId)}>{stages.map(s => <option value={s.id} key={s.id}>{s.name}</option>)}</select></label>
-        </article>)}{!rows.length && <Empty>{query || job ? "Không có hồ sơ phù hợp." : "Chưa có ứng viên ở giai đoạn này."}</Empty>}</div>
-      </section>;
-    })}</div>{schedule && <ScheduleForm onClose={() => setSchedule(false)} />}</>;
+  const { refresh, notify, canManage } = useRecruitment();
+  const [query, setQuery] = useState(""); const [job, setJob] = useState(""); const [page, setPage] = useState(0);
+  const [schedule, setSchedule] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [dragging, setDragging] = useState<string | null>(null);
+  const lookups = useApi<Lookups>("lookups");
+  const result = useApi<PageResult<Application>>(`applications?size=20&page=${page}&query=${encodeURIComponent(query)}${job ? `&jobId=${job}` : ""}`);
+  const rows = result.data?.content || [];
+  const columns = [{ id: "", name: "Chưa vào vòng", order: -Infinity }, ...(lookups.data?.stages || [])];
+  async function move(key: string, stageId: string) {
+    const a = rows.find(a => `${a.candidateId}_${a.jobId}` === key);
+    if (!a || !stageId || a.currentInterview?.stage.id === stageId || busy || !canManage) return;
+    setBusy(true); setError("");
+    try { await api(`applications/${a.candidateId}/${a.jobId}/stages`, { method: "POST", body: JSON.stringify({ stageId }) }); refresh(); notify("Đã chuyển vòng phỏng vấn."); }
+    catch (e) { setError(e instanceof Error ? e.message : "Không chuyển được vòng."); } finally { setBusy(false); setDragging(null); }
+  }
+  return <><div className="page-heading"><div><div className="eyebrow">Tuyển dụng / Quy trình phỏng vấn</div><h1>Mỗi ứng viên, một hành trình<span className="heading-dot">.</span></h1><p>Chuyển vòng giữ lại các buổi phỏng vấn trước đó.</p></div><button className="button primary" disabled={!canManage} onClick={() => setSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
+    <div className="pipeline-toolbar"><label className="search-field"><Search size={17} /><input aria-label="Tìm ứng viên" placeholder="Tìm tên, email, vị trí..." value={query} onChange={e => { setQuery(e.target.value); setPage(0); }} /></label><select className="filter-select" aria-label="Lọc vị trí tuyển dụng" value={job} onChange={e => { setJob(e.target.value); setPage(0); }}><option value="">Tất cả vị trí</option>{lookups.data?.jobs.map(j => <option key={j.id} value={j.id}>{j.title}</option>)}</select><span className="result-count">{result.data?.totalElements ?? "…"} hồ sơ</span><Link href="/admin/interviews/schedule" className="button secondary">Lịch phỏng vấn</Link></div>
+    <div className="board-caption"><span>Số lượng trên từng cột thuộc trang đang xem</span><span>Chỉ chuyển tiến theo thứ tự vòng</span></div>
+    <LoadState loading={result.loading || lookups.loading} error={result.error || lookups.error} reload={() => { result.reload(); lookups.reload(); }} />{error && <div className="api-error" role="alert">{error}</div>}
+    {result.data && lookups.data && <><div className="kanban-board" aria-busy={busy}>{columns.map((stage, n) => {
+      const items = rows.filter(a => (a.currentInterview?.stage.id || "") === stage.id);
+      return <section className="kanban-column" key={stage.id || "unassigned"} onDragOver={e => { if (stage.id && !busy) e.preventDefault(); }} onDrop={e => { e.preventDefault(); void move(e.dataTransfer.getData("text/plain"), stage.id); }}><div className="column-heading" style={{ borderBottomColor: stageColors[n % stageColors.length] }}><h2>{stage.name}</h2><span className="column-count">{items.length}</span></div><div className="column-cards">{items.map(a => {
+        const key = `${a.candidateId}_${a.jobId}`; const i = a.currentInterview; const closed = ["ACCEPTED", "REJECTED"].includes(a.status);
+        return <article key={key} className={`kanban-card ${dragging === key ? "dragging" : ""}`} draggable={canManage && !closed && !busy} onDragStart={e => { e.dataTransfer.setData("text/plain", key); setDragging(key); }} onDragEnd={() => setDragging(null)}><div className="card-topline"><span className="card-id">{a.candidateId.slice(0, 8)}</span><GripVertical size={15} /></div><div className="card-person"><Avatar name={a.candidate.name || "?"} index={rows.indexOf(a)} /><span><strong>{a.candidate.name || "Chưa có tên"}</strong><small>{a.job.title}</small></span>{i && <Link href={detailHref(i.id)} aria-label={`Chi tiết ${a.candidate.name}`}><ArrowUpRight size={17} /></Link>}</div>{a.candidate.email && <a className="card-email" href={`mailto:${a.candidate.email}`}>{a.candidate.email}</a>}<p className="muted">{applicationLabels[a.status]}</p>{i && <><Status status={i.status} /><div className="card-schedule"><span><CalendarDays size={13} />{dateLabel(i.scheduledAt)} · {timeLabel(i.scheduledAt)}</span><span>{i.method?.name || "Chưa chọn hình thức"}</span></div>{i.feedback && <div className="card-feedback"><span>Nhận xét phỏng vấn</span><p>{i.feedback}</p></div>}<div className="card-bottom"><span>Người phỏng vấn</span><span>{i.interviewer?.name || "Chưa phân công"}</span></div></>}
+          <label className="move-control"><span>Giai đoạn</span><select aria-label={`Chuyển giai đoạn ${a.candidate.name}`} value={i?.stage.id || ""} disabled={busy || closed || !canManage} onChange={e => void move(key, e.target.value)}><option value="" disabled>Chọn vòng</option>{lookups.data!.stages.map(s => <option key={s.id} value={s.id} disabled={s.order === null || (s.order ?? -Infinity) < (i?.stage.order ?? -Infinity)}>{s.name}</option>)}</select></label></article>;
+      })}{!items.length && <Empty>Không có hồ sơ ở cột này trong trang hiện tại.</Empty>}</div></section>;
+    })}</div><Pagination page={page} size={20} total={result.data.totalElements} onPage={setPage} /></>}
+    {schedule && <ScheduleForm onClose={() => setSchedule(false)} />}
+  </>;
 }

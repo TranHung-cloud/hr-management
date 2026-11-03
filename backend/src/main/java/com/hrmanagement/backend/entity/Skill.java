@@ -1,13 +1,15 @@
 package com.hrmanagement.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

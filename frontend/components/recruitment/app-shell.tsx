@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useRecruitment } from "./provider";
+import { initials } from "@/lib/recruitment";
 import { LayoutDashboard, UsersRound, BriefcaseBusiness, Workflow, CalendarDays, UserRound, ShieldCheck, ChevronDown, Menu, X, ArrowUpRight, Sprout } from "lucide-react";
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const path = usePathname(); const [open, setOpen] = useState(false);
+  const { displayName, canManage, logout } = useRecruitment(); const path = usePathname(); const [open, setOpen] = useState(false);
   const title = path === "/admin/dashboard" ? "Dashboard" : path === "/admin/interviews" ? "Quy trình phỏng vấn" : path === "/admin/interviews/schedule" ? "Lịch phỏng vấn" : "Chi tiết phỏng vấn";
   return <div className="app-shell">
     {open && <button className="nav-backdrop" aria-label="Đóng menu" onClick={() => setOpen(false)} />}
@@ -14,15 +16,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="nav-label">Không gian làm việc</div>
       <nav aria-label="Điều hướng chính">
         <Link className={`nav-item ${path === "/admin/dashboard" ? "active" : ""}`} href="/admin/dashboard" onClick={() => setOpen(false)}><LayoutDashboard />Dashboard</Link>
-        <div className="nav-item unavailable" title="Chưa triển khai"><UsersRound />Quản lý ứng viên<span className="soon">Sau</span></div>
-        <div className="nav-item unavailable" title="Chưa triển khai"><BriefcaseBusiness />Tin tuyển dụng<span className="soon">Sau</span></div>
+        <div className="nav-item unavailable" title="Chưa triển khai"><UsersRound />Quản lý ứng viên</div>
+        <div className="nav-item unavailable" title="Chưa triển khai"><BriefcaseBusiness />Tin tuyển dụng</div>
         <Link className={`nav-item ${path === "/admin/interviews" ? "active" : ""}`} href="/admin/interviews" onClick={() => setOpen(false)}><Workflow />Quy trình phỏng vấn</Link>
         <Link className={`nav-item ${path.startsWith("/admin/interviews/") ? "active" : ""}`} href="/admin/interviews/schedule" onClick={() => setOpen(false)}><CalendarDays />Lịch & chi tiết phỏng vấn</Link>
-        <div className="nav-item unavailable" title="Chưa triển khai"><UserRound />Hồ sơ cá nhân<span className="soon">Sau</span></div>
+        <div className="nav-item unavailable" title="Chưa triển khai"><UserRound />Hồ sơ cá nhân</div>
       </nav>
-      <div className="nav-label admin-label">Quản trị</div><div className="nav-item unavailable"><ShieldCheck />Quản lý tài khoản<span className="soon">Sau</span></div>
-      <div className="sidebar-bottom"><div className="demo-card"><span className="tiny-dot" />Bản thiết kế giao diện<p>Dữ liệu minh họa · 02/11/2026<br />Thay đổi chỉ lưu trong phiên xem.</p><span className="demo-caption">Dành cho đội ngũ nhân sự <ArrowUpRight size={13} /></span></div><div className="account"><span className="avatar tone-0">MT</span><span><strong>Nguyễn Minh Tuấn</strong><small>Lead HR</small></span><span className="online-dot" /></div></div>
+      <div className="nav-label admin-label">Quản trị</div><div className="nav-item unavailable"><ShieldCheck />Quản lý tài khoản</div>
     </aside>
-    <div className="workspace"><header className="topbar"><div className="topbar-left"><button className="mobile-menu icon-button" aria-label="Mở menu" onClick={() => setOpen(true)}><Menu size={21} /></button><span className="breadcrumb-parent">Tuyển dụng</span><span className="breadcrumb-slash">/</span><strong>{title}</strong></div><div className="topbar-right"><span className="workspace-label"><span className="tiny-dot" />Không gian HR</span><span className="topbar-divider" /><span className="avatar tone-0 small">MT</span><span className="topbar-name">Minh Tuấn<small>Lead HR</small></span><ChevronDown size={14} /></div></header><main className="main-content">{children}</main><footer className="app-footer"><span>RecruitHR · Cùng xây dựng đội ngũ tốt hơn</span><span>Bản xem trước giao diện</span></footer></div>
+    <div className="workspace"><header className="topbar"><div className="topbar-left"><button className="mobile-menu icon-button" aria-label="Mở menu" onClick={() => setOpen(true)}><Menu size={21} /></button><span className="breadcrumb-parent">Tuyển dụng</span><span className="breadcrumb-slash">/</span><strong>{title}</strong></div><div className="topbar-right"><span className="workspace-label"><span className="tiny-dot" />Không gian HR</span><span className="topbar-divider" /><span className="avatar tone-0 small">{initials(displayName)}</span><span className="topbar-name">{displayName}<small>{canManage ? "Nhân sự" : "Người phỏng vấn"}</small></span><ChevronDown size={14} /></div></header><main className="main-content">{children}</main><footer className="app-footer"><span>RecruitHR · Cùng xây dựng đội ngũ tốt hơn</span><span>RecruitHR · Kết nối API</span></footer></div>
   </div>;
 }

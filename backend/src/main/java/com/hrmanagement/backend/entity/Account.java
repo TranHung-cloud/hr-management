@@ -1,13 +1,15 @@
 package com.hrmanagement.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,10 +22,10 @@ public class Account {
     private String accPhone;
 
     @ManyToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "depId")
+    @JoinColumn(name = "dep_id")
     private Department department;
 }

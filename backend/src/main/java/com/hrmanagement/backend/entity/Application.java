@@ -3,10 +3,12 @@ package com.hrmanagement.backend.entity;
 import com.hrmanagement.backend.entity.id.ApplicationId;
 import com.hrmanagement.backend.entity.enums.ApplicationStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Application {
     @EmbeddedId
     private ApplicationId appId;

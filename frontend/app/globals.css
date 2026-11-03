@@ -363,3 +363,21 @@ small,.brand small,.nav-label,.demo-card,.demo-card p,.demo-caption,.account str
 .stage-stepper>div { color:#74816a; }
 .feedback-actions>span,.next-step p,.muted,.profile-note { color:#758168; }
 @media(max-width:720px) { .stage-stepper>div { min-width:160px; } }
+.status-UNSCHEDULED { background:#f0f0e8; color:#6f7867; }
+.status-SCHEDULED { background:#f4eedf; color:#8e754a; }
+.status-COMPLETED { background:#eaf1e8; color:#50764f; }
+.status-REJECTED { background:#f7e9e4; color:#a16250; }
+.login-screen { min-height:100dvh; display:grid; place-items:center; padding:24px; }
+.login-form { width:100%; max-width:420px; padding:30px; }
+.login-form h1 { font-size:25px; }
+.login-form label { display:flex; flex-direction:column; gap:7px; margin:22px 0; font-size:13px; }
+.login-form .button { width:100%; }
+.api-error { padding:18px; margin:14px 0; color:#864e40; background:#fcf4ee; font-size:13px; }
+.api-error button { margin-top:12px; }
+.pagination { display:flex; gap:8px; }
+button:disabled, select:disabled { opacity:.55; cursor:not-allowed; }
+.schedule-tabs { overflow-x:auto; }
+.schedule-tabs button { white-space:nowrap; }
+.schedule-form .table-footer { padding:5px 0 16px; border-top:0; }
+.card-bottom>span:last-child { max-width:135px; text-align:right; }
+@media(max-width:720px) { .table-footer { flex-wrap:wrap; gap:12px; }.list-toolbar>select { width:100%; }.account { flex-wrap:wrap; } }
