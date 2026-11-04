@@ -105,6 +105,10 @@ public class AccountService {
     @PreAuthorize("hasRole('HR_MANAGER')")
     @Transactional
     public void createAdminAccount(AdminAccountCreateDTO dto) {
+        Set<AppRole> allowedRoles = Set.of(
+                AppRole.HR_MANAGER,
+                AppRole.RECRUITER,
+                AppRole.INTERVIEWER);
         if (accountRepository.findByAccEmail(dto.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email đã tồn tại: " + dto.getEmail());
         }
@@ -113,8 +117,9 @@ public class AccountService {
                 .orElseThrow(() -> new IllegalArgumentException("Vai trò không tồn tại với id: " + dto.getRoleId()));
 
         AppRole appRole = AppRole.fromRoleName(role.getRoleName());
-        if (appRole == AppRole.CANDIDATE) {
-            throw new IllegalArgumentException("Không thể tạo tài khoản admin với vai trò Ứng viên");
+        if (!allowedRoles.contains(appRole)) {
+            throw new IllegalArgumentException(
+                    "Không thể tạo tài khoản admin với vai trò: " + appRole.getVietnameseName());
         }
 
         Department department = null;
@@ -149,7 +154,7 @@ public class AccountService {
         // Tìm role Ứng viên (CANDIDATE)
         Role candidateRole = roleRepository.findByRoleName(AppRole.CANDIDATE.getVietnameseName())
                 .or(() -> roleRepository.findByRoleName(AppRole.CANDIDATE.name()))
-                .orElseThrow(() -> new IllegalStateException("Không tìm thấy vai trò Ứng viên trong cơ sở dữ liệu"));
+                .orElseThrow(() -> new IllegalStateException("Không tìm thấy vai trò ứng viên trong cơ sở dữ liệu"));
 
         // 1. Tạo và lưu Account của ứng viên
         Account account = new Account();
