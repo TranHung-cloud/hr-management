@@ -189,6 +189,19 @@ public class AccountService {
         candidateRepository.save(candidate);
     }
 
+    @PreAuthorize("hasRole('HR_MANAGER')")
+    @Transactional
+    public void resetAdminPassword(Account account) {
+        if (account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
+                || account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
+            throw new IllegalArgumentException("Không thể reset mật khẩu cho tài khoản ứng viên");
+        }
+        String rawPassword = generateRandomPassword(10);
+        account.setAccPassword(passwordEncoder.encode(rawPassword));
+        accountRepository.save(account);
+        emailService.sendAdminAccountCredentials(account.getAccEmail(), rawPassword, account.getRole().getRoleName());
+    }
+
     private String generateRandomPassword(int length) {
         final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
         SecureRandom random = new SecureRandom();
