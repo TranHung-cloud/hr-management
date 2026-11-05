@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AdminAccountViewDTO {
+public class AccountViewDTO {
     private UUID accId;
     private String accName;
     private String accEmail;

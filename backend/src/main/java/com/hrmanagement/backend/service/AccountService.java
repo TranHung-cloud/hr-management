@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hrmanagement.backend.dto.AdminAccountViewDTO;
+import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 import com.hrmanagement.backend.dto.CandidateRegisterDTO;
 import com.hrmanagement.backend.entity.Account;
@@ -57,7 +57,7 @@ public class AccountService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional(readOnly = true)
-    public Page<AdminAccountViewDTO> getAccountsPage(
+    public Page<AccountViewDTO> getAccountsPage(
             UUID roleId,
             UUID depId,
             String keyword,
@@ -97,7 +97,7 @@ public class AccountService {
         };
 
         // Query và map trực tiếp sang AccountViewDTO
-        return accountRepository.findAll(spec, pageable).map(account -> new AdminAccountViewDTO(
+        return accountRepository.findAll(spec, pageable).map(account -> new AccountViewDTO(
                 account.getAccId(),
                 account.getAccName(),
                 account.getAccEmail(),
