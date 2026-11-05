@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.hrmanagement.backend.dto.ApplicationDetailViewDTO;
 import com.hrmanagement.backend.dto.ApplicationViewDTO;
 import com.hrmanagement.backend.entity.Application;
 import com.hrmanagement.backend.entity.InterviewProcess;
@@ -48,7 +49,6 @@ public class ApplicationService {
                     Sort.by("appCreatedAt").descending());
         }
 
-        // Lọc theo role, department và like search theo accName, accEmail, accPhone
         Specification<Application> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -74,7 +74,6 @@ public class ApplicationService {
             return cb.and(predicates.toArray(new Predicate[0]));
         };
 
-        // Query và map trực tiếp sang AccountViewDTO
         return applicationRepository.findAll(spec, pageable).map(application -> {
             InterviewProcess process = interviewProcessRepository.findByApplicationId(application.getAppId())
                     .orElse(null);
@@ -115,5 +114,44 @@ public class ApplicationService {
             application.setAppStatus(ApplicationStatus.ACCEPTED);
             applicationRepository.save(application);
         }
+    }
+
+    @Transactional
+    public ApplicationDetailViewDTO getApplicationDetail(UUID appId) {
+        Application application = applicationRepository.findById(appId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy đơn ứng tuyển với id: " + appId));
+
+        InterviewProcess interviewProcess = interviewProcessRepository.findByApplicationId(appId).orElse(null);
+
+        String degreeType = application.getCandidate().getDt() != null
+                ? application.getCandidate().getDt().getDtName()
+                : null;
+        List<String> skills = application.getCandidate().getSkills() != null
+                ? application.getCandidate().getSkills().stream().map(skill -> skill.getSkillName()).toList()
+                : List.of();
+
+        return new ApplicationDetailViewDTO(
+                application.getCandidate().getAccount().getAccName(),
+                application.getCandidate().getAccount().getAccEmail(),
+                application.getCandidate().getAccount().getAccPhone(),
+                application.getCandidate().getAccount().getAccIsMale(),
+                application.getCandidate().getAccount().getAccDob(),
+                degreeType,
+                skills,
+                application.getJobDescription().getJdTitle(),
+                interviewProcess != null
+                        ? interviewProcess.getInterviewStage().getIsName()
+                        : null,
+                interviewProcess != null
+                        ? (interviewProcess.getIpScheduledAt() != null
+                                ? interviewProcess.getIpScheduledAt().toString()
+                                : null)
+                        : null,
+                interviewProcess != null
+                        ? (interviewProcess.getIpStatus() != null
+                                ? interviewProcess.getIpStatus().name()
+                                : null)
+                        : null,
+                interviewProcess != null ? interviewProcess.getIpFeedback() : null);
     }
 }
