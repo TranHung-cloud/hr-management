@@ -1,5 +1,8 @@
 package com.hrmanagement.backend.dto;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -9,12 +12,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AdminAccountViewDetailDTO {
+public class CandidateAccountDetailDTO {
+    private UUID accId;
     private String accName;
     private String accEmail;
     private Boolean accIsMale;
-    private String accDob;
+    private LocalDate accDob;
     private String accPhone;
-    private String roleName;
-    private String depName;
+    private Integer candExpYear;
+    private String candCvPath;
+    private String candMajor;
 }

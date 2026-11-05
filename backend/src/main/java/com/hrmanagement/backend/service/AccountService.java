@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
+import com.hrmanagement.backend.dto.AdminAccountDetailDTO;
+import com.hrmanagement.backend.dto.CandidateAccountDetailDTO;
 import com.hrmanagement.backend.dto.CandidateRegisterDTO;
 import com.hrmanagement.backend.entity.Account;
 import com.hrmanagement.backend.entity.Candidate;
@@ -236,5 +238,45 @@ public class AccountService {
         }
 
         throw new AccessDeniedException("Không xác định được danh tính người dùng hiện tại");
+    }
+
+    @Transactional(readOnly = true)
+    public Object getCurrentAccountDetails() {
+        Account currentAccount = getCurrentAccount();
+        String roleName = currentAccount.getRole() != null
+                ? currentAccount.getRole().getRoleName()
+                : null;
+        if (roleName == null) {
+            throw new IllegalStateException("Tài khoản hiện tại không có vai trò");
+        }
+        if (roleName.equalsIgnoreCase(AppRole.CANDIDATE.name())
+                || roleName.equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
+            Candidate candidate = candidateRepository.findByAccount_AccId(currentAccount.getAccId())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Không tìm thấy thông tin ứng viên cho tài khoản hiện tại"));
+            return new CandidateAccountDetailDTO(
+                    currentAccount.getAccId(),
+                    currentAccount.getAccName(),
+                    currentAccount.getAccEmail(),
+                    currentAccount.getAccIsMale(),
+                    currentAccount.getAccDob(),
+                    currentAccount.getAccPhone(),
+                    candidate.getCandExpYear(),
+                    candidate.getCandCvPath(),
+                    candidate.getCandMajor());
+        } else {
+            String depName = currentAccount.getDepartment() != null
+                    ? currentAccount.getDepartment().getDepName()
+                    : null;
+            return new AdminAccountDetailDTO(
+                    currentAccount.getAccId(),
+                    currentAccount.getAccName(),
+                    currentAccount.getAccEmail(),
+                    currentAccount.getAccIsMale(),
+                    currentAccount.getAccDob(),
+                    currentAccount.getAccPhone(),
+                    roleName,
+                    depName);
+        }
     }
 }
