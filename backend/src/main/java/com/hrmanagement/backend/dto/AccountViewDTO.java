@@ -2,6 +2,8 @@ package com.hrmanagement.backend.dto;
 
 import java.util.UUID;
 
+import com.hrmanagement.backend.entity.enums.AccountStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,9 +17,8 @@ public class AccountViewDTO {
     private UUID accId;
     private String accName;
     private String accEmail;
-    private Boolean accIsMale;
-    private String accDob;
     private String accPhone;
     private String roleName;
+    private AccountStatus accStatus;
     private String depName;
 }

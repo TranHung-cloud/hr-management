@@ -101,10 +101,9 @@ public class AccountService {
                 account.getAccId(),
                 account.getAccName(),
                 account.getAccEmail(),
-                account.getAccIsMale(),
-                account.getAccDob() != null ? account.getAccDob().toString() : null,
                 account.getAccPhone(),
                 account.getRole() != null ? account.getRole().getRoleName() : null,
+                account.getAccStatus(),
                 account.getDepartment() != null ? account.getDepartment().getDepName() : null));
     }
 
