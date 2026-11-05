@@ -134,7 +134,7 @@ public class ApplicationService {
         public void rejectApplications(List<UUID> appIds) {
                 if (appIds == null || appIds.isEmpty())
                         return;
-                UUID currentAccountId = accountService.getCurrentAccountId();
+                Account currentAccount = accountService.getCurrentAccount();
                 for (UUID appId : appIds) {
                         Application application = applicationRepository.findById(appId)
                                         .orElseThrow(() -> new IllegalArgumentException(
@@ -146,7 +146,7 @@ public class ApplicationService {
                                                 "Đơn ứng tuyển chưa được liên kết với tin tuyển dụng hoặc người phụ trách");
                         }
 
-                        if (!jd.getRecruiter().getAccId().equals(currentAccountId)) {
+                        if (!jd.getRecruiter().getAccId().equals(currentAccount.getAccId())) {
                                 throw new AccessDeniedException(
                                                 "Bạn không có quyền từ chối đơn ứng tuyển này vì không phải là người được phân công tuyển dụng cho vị trí: "
                                                                 + jd.getJdTitle());
