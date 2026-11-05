@@ -15,7 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InterviewProcessId implements Serializable {
-    private UUID candId;
-    private UUID jobId;
+    private UUID appId;
     private UUID isId;
 }

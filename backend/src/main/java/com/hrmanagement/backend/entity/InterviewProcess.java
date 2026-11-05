@@ -15,33 +15,28 @@ public class InterviewProcess {
     private InterviewProcessId ipId;
 
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime ipCreatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
     private InterviewProcessStatus status = InterviewProcessStatus.UNSCHEDULED;
 
     private LocalDateTime scheduledAt;
     private String feedback;
 
-    @ManyToOne(optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "cand_id", referencedColumnName = "cand_id", insertable = false, updatable = false),
-            @JoinColumn(name = "job_id", referencedColumnName = "job_id", insertable = false, updatable = false)
-    })
+    @ManyToOne()
+    @JoinColumn(name = "app_id", nullable = false)
     private Application application;
 
-    @ManyToOne
-    @JoinColumn(name = "acc_id")
-    private Account interviewer;
-
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @MapsId("isId")
     @JoinColumn(name = "is_id", nullable = false)
     private InterviewStage interviewStage;
 
     @ManyToOne
-    @JoinColumn(name = "im_id")
+    @JoinColumn(name = "acc_id")
+    private Account interviewer;
+
+    @ManyToOne
+    @JoinColumn(name = "im_id", nullable = false)
     private InterviewMethod interviewMethod;
 }
