@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +29,8 @@ import com.hrmanagement.backend.entity.Candidate;
 import com.hrmanagement.backend.entity.Department;
 import com.hrmanagement.backend.entity.Role;
 import com.hrmanagement.backend.entity.Skill;
-import com.hrmanagement.backend.notification.service.EmailService;
+import com.hrmanagement.backend.notification.event.AdminAccountCreatedEvent;
+import com.hrmanagement.backend.notification.event.AdminPasswordResetEvent;
 import com.hrmanagement.backend.repository.AccountRepository;
 import com.hrmanagement.backend.repository.CandidateRepository;
 import com.hrmanagement.backend.repository.DegreeTypeRepository;
@@ -52,7 +54,7 @@ public class AccountService {
     private final DegreeTypeRepository degreeTypeRepository;
     private final SkillRepository skillRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional(readOnly = true)
     public Page<AccountViewDTO> getAccountsPage(
@@ -146,7 +148,10 @@ public class AccountService {
         Account saved = accountRepository.save(account);
 
         // Gửi mail thông tin tài khoản và mật khẩu tạm thời cho nhân viên
-        emailService.sendAdminAccountCredentials(saved.getAccEmail(), rawPassword, role.getRoleName());
+        eventPublisher.publishEvent(new AdminAccountCreatedEvent(
+                saved.getAccEmail(),
+                rawPassword,
+                role.getRoleName()));
     }
 
     @Transactional
@@ -204,7 +209,9 @@ public class AccountService {
         String rawPassword = generateRandomPassword(10);
         account.setAccPassword(passwordEncoder.encode(rawPassword));
         accountRepository.save(account);
-        emailService.sendAdminAccountCredentials(account.getAccEmail(), rawPassword, account.getRole().getRoleName());
+        eventPublisher.publishEvent(new AdminPasswordResetEvent(
+                account.getAccEmail(),
+                rawPassword));
     }
 
     private String generateRandomPassword(int length) {

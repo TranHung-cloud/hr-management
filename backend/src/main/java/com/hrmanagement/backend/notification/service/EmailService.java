@@ -17,44 +17,99 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
-    private final EmailTemplate emailTemplate;
+        private final JavaMailSender mailSender;
+        private final EmailTemplate emailTemplate;
 
-    public void sendEmail(EmailMessageDTO message) {
-        try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(
-                    mimeMessage, true, "UTF-8");
+        public void sendEmail(EmailMessageDTO message) {
+                try {
+                        MimeMessage mimeMessage = mailSender.createMimeMessage();
+                        MimeMessageHelper helper = new MimeMessageHelper(
+                                        mimeMessage, true, "UTF-8");
 
-            helper.setTo(message.getTo());
-            helper.setSubject(message.getSubject());
-            helper.setText(message.getBody(), message.isHtml());
+                        helper.setTo(message.getTo());
+                        helper.setSubject(message.getSubject());
+                        helper.setText(message.getBody(), message.isHtml());
 
-            mailSender.send(mimeMessage);
+                        mailSender.send(mimeMessage);
 
-            log.info("Email sent successfully to: {}", message.getTo());
+                        log.info("Email sent successfully to: {}", message.getTo());
 
-        } catch (Exception ex) {
-            log.error("Failed to send email to {}. Error: {}",
-                    message.getTo(), ex.getMessage());
+                } catch (Exception ex) {
+                        log.error("Failed to send email to {}. Error: {}",
+                                        message.getTo(), ex.getMessage());
+                }
         }
-    }
 
-    @Async
-    public void sendAdminAccountCredentials(
-            String recipientEmail,
-            String rawPassword,
-            String roleName) {
-        String htmlBody = emailTemplate.buildAdminAccountCreatedEmail(
-                recipientEmail, rawPassword, roleName);
+        @Async
+        public void sendAdminAccountCredentials(
+                        String recipientEmail,
+                        String rawPassword,
+                        String roleName) {
+                String htmlBody = emailTemplate.buildAdminAccountCreatedEmail(
+                                recipientEmail, rawPassword, roleName);
 
-        EmailMessageDTO message = EmailMessageDTO.builder()
-                .to(recipientEmail)
-                .subject("[HR Management] Thông tin tài khoản quản trị hệ thống")
-                .body(htmlBody)
-                .isHtml(true)
-                .build();
+                EmailMessageDTO message = EmailMessageDTO.builder()
+                                .to(recipientEmail)
+                                .subject("[HR Management] Thông tin tài khoản quản trị hệ thống")
+                                .body(htmlBody)
+                                .isHtml(true)
+                                .build();
 
-        sendEmail(message);
-    }
+                sendEmail(message);
+        }
+
+        public void sendAdminPasswordResetEmail(
+                        String recipientEmail,
+                        String rawPassword) {
+
+                String htmlBody = emailTemplate.buildAdminPasswordResetEmail(
+                                recipientEmail, rawPassword);
+
+                EmailMessageDTO message = EmailMessageDTO.builder()
+                                .to(recipientEmail)
+                                .subject("[HR Management] Thông báo cấp lại mật khẩu tài khoản quản trị")
+                                .body(htmlBody)
+                                .isHtml(true)
+                                .build();
+
+                sendEmail(message);
+        }
+
+        @Async
+        public void sendEmailForAcceptedApplications(
+                        String recipientEmail,
+                        String candidateName,
+                        String jobTitle) {
+
+                String htmlBody = emailTemplate.buildAcceptedApplicationEmail(
+                                candidateName, jobTitle);
+
+                EmailMessageDTO message = EmailMessageDTO.builder()
+                                .to(recipientEmail)
+                                .subject("[HR Management] Chúc mừng! Hồ sơ ứng tuyển của bạn đã được chấp nhận")
+                                .body(htmlBody)
+                                .isHtml(true)
+                                .build();
+
+                sendEmail(message);
+        }
+
+        @Async
+        public void sendEmailForRejectedApplications(
+                        String recipientEmail,
+                        String candidateName,
+                        String jobTitle) {
+
+                String htmlBody = emailTemplate.buildRejectedApplicationEmail(
+                                candidateName, jobTitle);
+
+                EmailMessageDTO message = EmailMessageDTO.builder()
+                                .to(recipientEmail)
+                                .subject("[HR Management] Thông báo kết quả hồ sơ ứng tuyển")
+                                .body(htmlBody)
+                                .isHtml(true)
+                                .build();
+
+                sendEmail(message);
+        }
 }
