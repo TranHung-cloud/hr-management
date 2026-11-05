@@ -95,7 +95,7 @@ public class AccountService {
                 account.getAccId(),
                 account.getAccName(),
                 account.getAccEmail(),
-                account.getAccGender(),
+                account.getAccIsMale(),
                 account.getAccDob() != null ? account.getAccDob().toString() : null,
                 account.getAccPhone(),
                 account.getRole() != null ? account.getRole().getRoleName() : null,
@@ -161,7 +161,7 @@ public class AccountService {
         account.setAccEmail(dto.getAccEmail());
         account.setAccPassword(passwordEncoder.encode(dto.getAccPassword()));
         account.setAccName(dto.getAccName());
-        account.setAccGender(dto.getAccGender());
+        account.setAccIsMale(dto.getAccIsMale());
         account.setAccDob(dto.getAccDob());
         account.setAccPhone(dto.getAccPhone());
         account.setRole(candidateRole);
@@ -171,11 +171,8 @@ public class AccountService {
         // 2. Tạo và lưu Candidate
         Candidate candidate = new Candidate();
         candidate.setAccount(savedAccount);
-        candidate.setCandMajor(dto.getCandMajor());
         candidate.setCandExpYear(dto.getCandExpYear());
-        candidate.setCandExpectedSal(dto.getCandExpectedSal());
         candidate.setCandCvPath(dto.getCandCvPath());
-        candidate.setCandNote(dto.getCandNote());
 
         if (dto.getDtId() != null) {
             degreeTypeRepository.findById(dto.getDtId()).ifPresent(candidate::setDt);
@@ -184,6 +181,10 @@ public class AccountService {
         if (dto.getSkillIds() != null && !dto.getSkillIds().isEmpty()) {
             Set<Skill> skills = new HashSet<>(skillRepository.findAllById(dto.getSkillIds()));
             candidate.setSkills(skills);
+        }
+
+        if (dto.getCandMajor() != null) {
+            candidate.setCandMajor(dto.getCandMajor());
         }
 
         candidateRepository.save(candidate);

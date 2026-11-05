@@ -15,7 +15,7 @@ public class AccountViewDTO {
     private UUID accId;
     private String accName;
     private String accEmail;
-    private String accGender;
+    private Boolean accIsMale;
     private String accDob;
     private String accPhone;
     private String roleName;

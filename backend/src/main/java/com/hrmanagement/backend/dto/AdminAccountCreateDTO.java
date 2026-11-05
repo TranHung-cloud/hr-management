@@ -8,11 +8,11 @@ import lombok.Data;
 
 @Data
 public class AdminAccountCreateDTO {
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email là bắt buộc")
+    @Email(message = "Email không hợp lệ")
     private String email;
 
-    @NotNull(message = "Role ID is required")
+    @NotNull(message = "Vai trò là bắt buộc")
     private UUID roleId;
 
     private UUID depId;

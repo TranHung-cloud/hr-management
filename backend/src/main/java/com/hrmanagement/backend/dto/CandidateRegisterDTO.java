@@ -11,40 +11,33 @@ import lombok.Data;
 @Data
 public class CandidateRegisterDTO {
     // Thông tin bắt buộc bên Account
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email là bắt buộc")
+    @Email(message = "Email không hợp lệ")
     private String accEmail;
 
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Password là bắt buộc")
     private String accPassword;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Tên là bắt buộc")
     private String accName;
 
-    @NotBlank(message = "Gender is required")
-    private String accGender;
+    @NotNull(message = "Giới tính là bắt buộc")
+    private Boolean accIsMale;
 
-    @NotNull(message = "Date of birth is required")
+    @NotNull(message = "Ngày sinh là bắt buộc")
     private LocalDate accDob;
 
-    @NotBlank(message = "Phone is required")
+    @NotBlank(message = "Số điện thoại là bắt buộc")
     private String accPhone;
 
-    // Thông tin bắt buộc bên Candidate
-    @NotBlank(message = "Major is required")
-    private String candMajor;
-
-    @NotNull(message = "Experience year is required")
+    @NotNull(message = "Số năm kinh nghiệm là bắt buộc")
     private Integer candExpYear;
 
-    @NotNull(message = "Expected salary is required")
-    private Integer candExpectedSal;
-
-    @NotBlank(message = "CV path is required")
+    @NotBlank(message = "CV là bắt buộc")
     private String candCvPath;
 
     // Thông tin bổ sung (tùy chọn)
-    private String candNote;
+    private String candMajor;
     private UUID dtId;
     private Set<UUID> skillIds;
 }
