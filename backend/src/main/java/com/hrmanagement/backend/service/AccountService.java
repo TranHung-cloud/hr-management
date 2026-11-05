@@ -12,7 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +36,7 @@ import com.hrmanagement.backend.repository.DepartmentRepository;
 import com.hrmanagement.backend.repository.RoleRepository;
 import com.hrmanagement.backend.repository.SkillRepository;
 import com.hrmanagement.backend.security.AppRole;
+import com.hrmanagement.backend.security.CustomUserDetails;
 
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +55,7 @@ public class AccountService {
     private final EmailService emailService;
 
     @Transactional(readOnly = true)
-    public Page<AccountViewDTO> getAccounts(
+    public Page<AccountViewDTO> getAccountsPage(
             UUID roleId,
             UUID depId,
             String keyword,
@@ -211,5 +215,19 @@ public class AccountService {
             sb.append(chars.charAt(random.nextInt(chars.length())));
         }
         return sb.toString();
+    }
+
+    public UUID getCurrentAccountId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AccessDeniedException("Người dùng chưa được xác thực");
+        }
+
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof CustomUserDetails userDetails) {
+            return userDetails.getAccId();
+        }
+
+        throw new AccessDeniedException("Không xác định được danh tính người dùng hiện tại");
     }
 }
