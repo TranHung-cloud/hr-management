@@ -13,20 +13,20 @@ import java.util.UUID;
 public class JobDescription {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
-        private UUID jobId;
+        private UUID jdId;
         @Column(nullable = false)
-        private String jobTitle;
+        private String jdTitle;
         @Column(nullable = false)
-        private String jobDesc;
-        private Integer salaryMin;
-        private Integer salaryMax;
+        private String jdDesc;
+        private Integer jdSalMin;
+        private Integer jdSalMax;
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
-        private JobStatus jobStatus;
+        private JobStatus jdStatus;
         @Column(nullable = false)
         @Min(1)
-        private String jobTarget;
-        private String jobMajor;
+        private String jdTarget;
+        private String jdMajor;
 
         @ManyToOne
         @JoinColumn(name = "dep_id", nullable = false)

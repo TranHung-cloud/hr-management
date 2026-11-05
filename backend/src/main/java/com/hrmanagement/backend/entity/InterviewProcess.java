@@ -18,17 +18,16 @@ public class InterviewProcess {
     private LocalDateTime ipCreatedAt;
 
     @Enumerated(EnumType.STRING)
-    private InterviewProcessStatus status = InterviewProcessStatus.UNSCHEDULED;
+    private InterviewProcessStatus ipStatus = InterviewProcessStatus.UNSCHEDULED;
 
-    private LocalDateTime scheduledAt;
-    private String feedback;
+    private LocalDateTime ipScheduledAt;
+    private String ipFeedback;
 
     @ManyToOne()
     @JoinColumn(name = "app_id", nullable = false)
     private Application application;
 
     @ManyToOne()
-    @MapsId("isId")
     @JoinColumn(name = "is_id", nullable = false)
     private InterviewStage interviewStage;
 
