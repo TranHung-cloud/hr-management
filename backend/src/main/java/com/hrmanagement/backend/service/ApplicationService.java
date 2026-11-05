@@ -2,7 +2,6 @@ package com.hrmanagement.backend.service;
 
 import com.hrmanagement.backend.notification.event.ApplicationAcceptedEvent;
 import com.hrmanagement.backend.notification.event.ApplicationRejectedEvent;
-import com.hrmanagement.backend.notification.service.EmailService;
 import com.hrmanagement.backend.repository.ApplicationRepository;
 import com.hrmanagement.backend.repository.InterviewProcessRepository;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.hrmanagement.backend.dto.ApplicationDetailViewDTO;
 import com.hrmanagement.backend.dto.ApplicationViewDTO;
+import com.hrmanagement.backend.entity.Account;
 import com.hrmanagement.backend.entity.Application;
 import com.hrmanagement.backend.entity.InterviewProcess;
 import com.hrmanagement.backend.entity.JobDescription;
@@ -34,7 +34,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplicationService {
 
-        private final EmailService emailService;
         private final ApplicationRepository applicationRepository;
         private final InterviewProcessRepository interviewProcessRepository;
         private final AccountService accountService;
@@ -104,7 +103,7 @@ public class ApplicationService {
         public void acceptApplications(List<UUID> appIds) {
                 if (appIds == null || appIds.isEmpty())
                         return;
-                UUID currentAccountId = accountService.getCurrentAccountId();
+                Account currentAccount = accountService.getCurrentAccount();
                 for (UUID appId : appIds) {
                         Application application = applicationRepository.findById(appId)
                                         .orElseThrow(() -> new IllegalArgumentException(
@@ -116,7 +115,7 @@ public class ApplicationService {
                                                 "Đơn ứng tuyển chưa được liên kết với tin tuyển dụng hoặc người phụ trách");
                         }
 
-                        if (!jd.getRecruiter().getAccId().equals(currentAccountId)) {
+                        if (!jd.getRecruiter().getAccId().equals(currentAccount.getAccId())) {
                                 throw new AccessDeniedException(
                                                 "Bạn không có quyền duyệt đơn ứng tuyển này vì không phải là người được phân công tuyển dụng cho vị trí: "
                                                                 + jd.getJdTitle());
@@ -202,4 +201,5 @@ public class ApplicationService {
                                                 : null,
                                 interviewProcess != null ? interviewProcess.getIpFeedback() : null);
         }
+
 }

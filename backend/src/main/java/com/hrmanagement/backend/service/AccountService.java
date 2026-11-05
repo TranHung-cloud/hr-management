@@ -224,7 +224,7 @@ public class AccountService {
         return sb.toString();
     }
 
-    public UUID getCurrentAccountId() {
+    public Account getCurrentAccount() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("Người dùng chưa được xác thực");
@@ -232,7 +232,8 @@ public class AccountService {
 
         Object principal = authentication.getPrincipal();
         if (principal instanceof CustomUserDetails userDetails) {
-            return userDetails.getAccId();
+            return accountRepository.findById(userDetails.getAccId())
+                    .orElseThrow(() -> new AccessDeniedException("Không tìm thấy tài khoản hiện tại"));
         }
 
         throw new AccessDeniedException("Không xác định được danh tính người dùng hiện tại");
