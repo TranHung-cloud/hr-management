@@ -301,4 +301,41 @@ public class AccountService {
         currentAccount.setDepartment(department);
         accountRepository.save(currentAccount);
     }
+
+    @Transactional
+    public void updateCandidateAccount(CandidateRegisterDTO dto) {
+        Account currentAccount = getCurrentAccount();
+        if (!currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
+                && !currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
+            throw new IllegalArgumentException("Không thể cập nhật thông tin tài khoản admin bằng phương thức này");
+        }
+        Candidate candidate = candidateRepository.findByAccount_AccId(currentAccount.getAccId())
+                .orElseThrow(() -> new IllegalStateException(
+                        "Không tìm thấy thông tin ứng viên cho tài khoản hiện tại"));
+
+        if (dto.getAccPassword() != null && !dto.getAccPassword().isEmpty()) {
+            currentAccount.setAccPassword(passwordEncoder.encode(dto.getAccPassword()));
+        }
+        currentAccount.setAccName(dto.getAccName());
+        currentAccount.setAccEmail(dto.getAccEmail());
+        currentAccount.setAccIsMale(dto.getAccIsMale());
+        currentAccount.setAccDob(dto.getAccDob());
+        currentAccount.setAccPhone(dto.getAccPhone());
+
+        candidate.setCandExpYear(dto.getCandExpYear());
+        candidate.setCandCvPath(dto.getCandCvPath());
+        candidate.setCandMajor(dto.getCandMajor());
+
+        if (dto.getDtId() != null) {
+            degreeTypeRepository.findById(dto.getDtId()).ifPresent(candidate::setDt);
+        }
+
+        if (dto.getSkillIds() != null && !dto.getSkillIds().isEmpty()) {
+            Set<Skill> skills = new HashSet<>(skillRepository.findAllById(dto.getSkillIds()));
+            candidate.setSkills(skills);
+        }
+
+        accountRepository.save(currentAccount);
+        candidateRepository.save(candidate);
+    }
 }

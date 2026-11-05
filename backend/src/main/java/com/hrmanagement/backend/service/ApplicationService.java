@@ -201,5 +201,4 @@ public class ApplicationService {
                                                 : null,
                                 interviewProcess != null ? interviewProcess.getIpFeedback() : null);
         }
-
 }
