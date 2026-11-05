@@ -203,7 +203,9 @@ public class AccountService {
 
     @PreAuthorize("hasRole('HR_MANAGER')")
     @Transactional
-    public void resetAdminPassword(Account account) {
+    public void resetAdminPassword(UUID accId) {
+        Account account = accountRepository.findById(accId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản"));
         if (account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
                 || account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
             throw new IllegalArgumentException("Không thể reset mật khẩu cho tài khoản ứng viên");
