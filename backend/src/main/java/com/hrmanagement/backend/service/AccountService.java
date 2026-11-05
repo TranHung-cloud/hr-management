@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 import com.hrmanagement.backend.dto.AdminAccountDetailDTO;
+import com.hrmanagement.backend.dto.AdminAccountUpdateDTO;
 import com.hrmanagement.backend.dto.CandidateAccountDetailDTO;
 import com.hrmanagement.backend.dto.CandidateRegisterDTO;
 import com.hrmanagement.backend.entity.Account;
@@ -278,5 +279,26 @@ public class AccountService {
                     roleName,
                     depName);
         }
+    }
+
+    @Transactional
+    public void updateAdminAccount(AdminAccountUpdateDTO dto) {
+        Account currentAccount = getCurrentAccount();
+        Department department = departmentRepository.findById(dto.getDepId())
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy phòng ban với id: " + dto.getDepId()));
+        if (currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
+                || currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
+            throw new IllegalArgumentException("Không thể cập nhật thông tin tài khoản ứng viên bằng phương thức này");
+        }
+        if (dto.getAccPassword() != null && !dto.getAccPassword().isEmpty()) {
+            currentAccount.setAccPassword(passwordEncoder.encode(dto.getAccPassword()));
+        }
+        currentAccount.setAccName(dto.getAccName());
+        currentAccount.setAccEmail(dto.getAccEmail());
+        currentAccount.setAccIsMale(dto.getAccIsMale());
+        currentAccount.setAccDob(dto.getAccDob());
+        currentAccount.setAccPhone(dto.getAccPhone());
+        currentAccount.setDepartment(department);
+        accountRepository.save(currentAccount);
     }
 }
