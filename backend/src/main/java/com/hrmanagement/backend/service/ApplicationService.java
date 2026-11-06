@@ -85,7 +85,7 @@ public class ApplicationService {
 
                 return applicationRepository.findAll(spec, pageable).map(application -> {
                         InterviewProcess process = interviewProcessRepository
-                                        .findByApplication_AppId(application.getAppId())
+                                        .findFirstByApplication_AppIdOrderByIpCreatedAtDesc(application.getAppId())
                                         .orElse(null);
                         return new ApplicationViewDTO(
                                         application.getAppId(),
@@ -109,7 +109,10 @@ public class ApplicationService {
                         Application application = applicationRepository.findById(appId)
                                         .orElseThrow(() -> new IllegalArgumentException(
                                                         "Không tìm thấy đơn ứng tuyển với id: " + appId));
-
+                        if (application.getAppStatus() != ApplicationStatus.SUBMITTED) {
+                                throw new IllegalStateException(
+                                                "Đơn ứng tuyển này đã được xử lý và không thể chấp nhận nữa.");
+                        }
                         JobDescription jd = application.getJobDescription();
                         if (jd == null || jd.getRecruiter() == null) {
                                 throw new IllegalStateException(
@@ -140,7 +143,10 @@ public class ApplicationService {
                         Application application = applicationRepository.findById(appId)
                                         .orElseThrow(() -> new IllegalArgumentException(
                                                         "Không tìm thấy đơn ứng tuyển với id: " + appId));
-
+                        if (application.getAppStatus() != ApplicationStatus.SUBMITTED) {
+                                throw new IllegalStateException(
+                                                "Đơn ứng tuyển này đã được xử lý và không thể từ chối nữa.");
+                        }
                         JobDescription jd = application.getJobDescription();
                         if (jd == null || jd.getRecruiter() == null) {
                                 throw new IllegalStateException(
@@ -168,7 +174,8 @@ public class ApplicationService {
                                 .orElseThrow(() -> new IllegalArgumentException(
                                                 "Không tìm thấy đơn ứng tuyển với id: " + appId));
 
-                InterviewProcess interviewProcess = interviewProcessRepository.findByApplication_AppId(appId)
+                InterviewProcess interviewProcess = interviewProcessRepository
+                                .findFirstByApplication_AppIdOrderByIpCreatedAtDesc(appId)
                                 .orElse(null);
 
                 String degreeType = application.getCandidate().getDt() != null
