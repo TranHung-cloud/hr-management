@@ -26,6 +26,7 @@ import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 import com.hrmanagement.backend.dto.AdminAccountDetailDTO;
 import com.hrmanagement.backend.dto.AdminAccountUpdateDTO;
 import com.hrmanagement.backend.dto.CandidateAccountDetailDTO;
+import com.hrmanagement.backend.dto.CandidateAccountUpdateDTO;
 import com.hrmanagement.backend.dto.CandidateRegisterDTO;
 import com.hrmanagement.backend.entity.Account;
 import com.hrmanagement.backend.entity.Candidate;
@@ -305,7 +306,7 @@ public class AccountService {
     }
 
     @Transactional
-    public void updateCandidateAccount(CandidateRegisterDTO dto) {
+    public void updateCandidateAccount(CandidateAccountUpdateDTO dto) {
         Account currentAccount = getCurrentAccount();
         if (!currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
                 && !currentAccount.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {

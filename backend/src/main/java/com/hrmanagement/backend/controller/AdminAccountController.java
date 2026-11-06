@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 
-import java.net.http.HttpHeaders;
-import java.net.http.HttpResponse;
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
