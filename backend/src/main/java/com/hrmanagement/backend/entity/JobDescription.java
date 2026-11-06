@@ -3,13 +3,19 @@ package com.hrmanagement.backend.entity;
 import com.hrmanagement.backend.entity.enums.JobStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobDescription {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)

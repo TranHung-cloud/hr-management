@@ -3,13 +3,19 @@ package com.hrmanagement.backend.entity;
 import com.hrmanagement.backend.entity.id.InterviewProcessId;
 import com.hrmanagement.backend.entity.enums.InterviewProcessStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class InterviewProcess {
     @EmbeddedId
     private InterviewProcessId ipId;
