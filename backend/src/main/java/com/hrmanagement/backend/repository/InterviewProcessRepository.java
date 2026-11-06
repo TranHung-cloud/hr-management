@@ -9,5 +9,5 @@ import com.hrmanagement.backend.entity.InterviewProcess;
 import com.hrmanagement.backend.entity.id.InterviewProcessId;
 
 public interface InterviewProcessRepository extends JpaRepository<InterviewProcess, InterviewProcessId> {
-    Optional<InterviewProcess> findByApplicationId(UUID appId);
+    Optional<InterviewProcess> findByApplication_AppId(UUID appId);
 }

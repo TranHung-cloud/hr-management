@@ -17,8 +17,6 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID appId;
 
-    private Integer appExpectedSal;
-    private Integer appProposalSal;
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime appCreatedAt;

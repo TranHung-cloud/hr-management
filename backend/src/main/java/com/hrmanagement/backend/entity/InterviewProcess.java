@@ -24,10 +24,12 @@ public class InterviewProcess {
     private String ipFeedback;
 
     @ManyToOne()
+    @MapsId("appId")
     @JoinColumn(name = "app_id", nullable = false)
     private Application application;
 
     @ManyToOne()
+    @MapsId("isId")
     @JoinColumn(name = "is_id", nullable = false)
     private InterviewStage interviewStage;
 

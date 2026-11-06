@@ -25,7 +25,7 @@ public class JobDescription {
         private JobStatus jdStatus;
         @Column(nullable = false)
         @Min(1)
-        private String jdTarget;
+        private Integer jdTarget;
         private String jdMajor;
 
         @ManyToOne
@@ -41,10 +41,10 @@ public class JobDescription {
         private DegreeType degreeType;
 
         @ManyToMany
-        @JoinTable(name = "campaign_job_description", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "cp_id"))
+        @JoinTable(name = "campaign_job_description", joinColumns = @JoinColumn(name = "jd_id"), inverseJoinColumns = @JoinColumn(name = "cp_id"))
         private Set<Campaign> campaigns;
 
         @ManyToMany
-        @JoinTable(name = "skill_job_description", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+        @JoinTable(name = "skill_job_description", joinColumns = @JoinColumn(name = "jd_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
         private Set<Skill> skills;
 }

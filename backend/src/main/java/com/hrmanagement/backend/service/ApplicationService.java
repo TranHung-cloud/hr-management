@@ -85,7 +85,7 @@ public class ApplicationService {
 
                 return applicationRepository.findAll(spec, pageable).map(application -> {
                         InterviewProcess process = interviewProcessRepository
-                                        .findByApplicationId(application.getAppId())
+                                        .findByApplication_AppId(application.getAppId())
                                         .orElse(null);
                         return new ApplicationViewDTO(
                                         application.getAppId(),
@@ -168,7 +168,8 @@ public class ApplicationService {
                                 .orElseThrow(() -> new IllegalArgumentException(
                                                 "Không tìm thấy đơn ứng tuyển với id: " + appId));
 
-                InterviewProcess interviewProcess = interviewProcessRepository.findByApplicationId(appId).orElse(null);
+                InterviewProcess interviewProcess = interviewProcessRepository.findByApplication_AppId(appId)
+                                .orElse(null);
 
                 String degreeType = application.getCandidate().getDt() != null
                                 ? application.getCandidate().getDt().getDtName()
