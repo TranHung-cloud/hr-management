@@ -41,7 +41,8 @@ public class ApplicationService {
 
         @Transactional(readOnly = true)
         public Page<ApplicationViewDTO> getApplicationsPage(
-                        UUID depId, InterviewProcessStatus ipStatus,
+                        UUID depId,
+                        InterviewProcessStatus ipStatus,
                         String keyword, // ten ung vien, email ung vien, ten job description
                         Pageable pageable) {
                 // Xử lý pageable mặc định size 10 và sort theo appCreatedAt
