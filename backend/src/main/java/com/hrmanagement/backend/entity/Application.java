@@ -1,7 +1,12 @@
 package com.hrmanagement.backend.entity;
 
-import com.hrmanagement.backend.entity.id.ApplicationId;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.hrmanagement.backend.entity.enums.ApplicationStatus;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,20 +15,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Application {
-    @EmbeddedId
-    private ApplicationId appId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID appId;
 
+    @Column(nullable = false)
+    @CreationTimestamp
+    private LocalDateTime appCreatedAt;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
-    private ApplicationStatus status = ApplicationStatus.SUBMITTED;
+    @Column(nullable = false)
+    private ApplicationStatus appStatus = ApplicationStatus.SUBMITTED;
 
     @ManyToOne
-    @MapsId("candId")
-    @JoinColumn(name = "cand_id")
+    @JoinColumn(name = "candId", nullable = false)
     private Candidate candidate;
 
     @ManyToOne
-    @MapsId("jobId")
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "jdId", nullable = false)
     private JobDescription jobDescription;
 }

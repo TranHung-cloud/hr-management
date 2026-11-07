@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -16,18 +14,13 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID candId;
-    private String candNote;
-    @CreationTimestamp
-    @Column(name = "cand_created_at", updatable = false)
-    private LocalDateTime candCreatedAt;
-    private Integer candExpectedSal;
-    private Integer candProposalSal;
+    @Column(nullable = false)
     private String candCvPath;
     private Integer candExpYear;
     private String candMajor;
 
     @OneToOne
-    @JoinColumn(name = "acc_id", unique = true)
+    @JoinColumn(name = "acc_id", unique = true, nullable = false)
     private Account account;
 
     @ManyToOne
@@ -35,10 +28,6 @@ public class Candidate {
     private DegreeType dt;
 
     @ManyToMany
-    @JoinTable(
-            name = "skill_candidate",
-            joinColumns = @JoinColumn(name = "cand_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
+    @JoinTable(name = "skill_candidate", joinColumns = @JoinColumn(name = "cand_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills;
 }

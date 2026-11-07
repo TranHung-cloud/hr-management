@@ -14,6 +14,7 @@ public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID skillId;
+    @Column(nullable = false, unique = true)
     private String skillName;
 
     @ManyToMany(mappedBy = "skills")
