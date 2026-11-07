@@ -59,11 +59,19 @@ public class ApplicationService {
                         List<Predicate> predicates = new ArrayList<>();
 
                         if (ipStatus != null) {
-                                predicates.add(cb.equal(root.get("ipStatus"), ipStatus));
+                                var matching = query.subquery(Integer.class);
+                                var ip = matching.from(InterviewProcess.class);
+                                var later = matching.subquery(Integer.class);
+                                var other = later.from(InterviewProcess.class);
+                                later.select(cb.literal(1)).where(cb.equal(other.get("application"), root),
+                                    cb.greaterThan(other.get("interviewStage").get("isOrder"), ip.get("interviewStage").get("isOrder")));
+                                matching.select(cb.literal(1)).where(cb.equal(ip.get("application"), root),
+                                    cb.equal(ip.get("ipStatus"), ipStatus), cb.not(cb.exists(later)));
+                                predicates.add(cb.exists(matching));
                         }
 
                         if (depId != null) {
-                                predicates.add(cb.equal(root.get("department").get("depId"), depId));
+                                predicates.add(cb.equal(root.get("jobDescription").get("department").get("depId"), depId));
                         }
 
                         if (keyword != null && !keyword.trim().isEmpty()) {
@@ -85,7 +93,7 @@ public class ApplicationService {
 
                 return applicationRepository.findAll(spec, pageable).map(application -> {
                         InterviewProcess process = interviewProcessRepository
-                                        .findFirstByApplication_AppIdOrderByIpCreatedAtDesc(application.getAppId())
+                                        .findFirstByApplication_AppIdOrderByInterviewStage_IsOrderDesc(application.getAppId())
                                         .orElse(null);
                         return new ApplicationViewDTO(
                                         application.getAppId(),
@@ -175,7 +183,7 @@ public class ApplicationService {
                                                 "Không tìm thấy đơn ứng tuyển với id: " + appId));
 
                 InterviewProcess interviewProcess = interviewProcessRepository
-                                .findFirstByApplication_AppIdOrderByIpCreatedAtDesc(appId)
+                                .findFirstByApplication_AppIdOrderByInterviewStage_IsOrderDesc(appId)
                                 .orElse(null);
 
                 String degreeType = application.getCandidate().getDt() != null

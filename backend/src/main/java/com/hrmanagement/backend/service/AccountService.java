@@ -142,11 +142,12 @@ public class AccountService {
         String rawPassword = generateRandomPassword(10);
 
         Account account = new Account();
-        account.setAccEmail(dto.getEmail());
+        account.setAccEmail(dto.getEmail().trim().toLowerCase(java.util.Locale.ROOT));
+        account.setAccIsMale(dto.getAccIsMale());
         account.setAccPassword(passwordEncoder.encode(rawPassword));
         account.setRole(role);
         account.setDepartment(department);
-        // Để trắng các thông tin cá nhân (accName, accGender, accDob, accPhone = null)
+        // Name, birth date and phone may be completed later.
 
         Account saved = accountRepository.save(account);
 
@@ -159,7 +160,7 @@ public class AccountService {
 
     @Transactional
     public void createCandidateAccount(CandidateRegisterDTO dto) {
-        if (accountRepository.findByAccEmail(dto.getAccEmail()).isPresent()) {
+        if (!accountRepository.findByAccEmailIgnoreCase(dto.getAccEmail().trim()).isEmpty()) {
             throw new IllegalArgumentException("Email đã tồn tại: " + dto.getAccEmail());
         }
 
@@ -170,7 +171,7 @@ public class AccountService {
 
         // 1. Tạo và lưu Account của ứng viên
         Account account = new Account();
-        account.setAccEmail(dto.getAccEmail());
+        account.setAccEmail(dto.getAccEmail().trim().toLowerCase(java.util.Locale.ROOT));
         account.setAccPassword(passwordEncoder.encode(dto.getAccPassword()));
         account.setAccName(dto.getAccName());
         account.setAccIsMale(dto.getAccIsMale());

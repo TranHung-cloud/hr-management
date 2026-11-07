@@ -3,7 +3,8 @@ package com.hrmanagement.backend.entity;
 import com.hrmanagement.backend.entity.enums.JobStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
@@ -17,7 +18,7 @@ public class JobDescription {
         private UUID jdId;
         @Column(nullable = false)
         private String jdTitle;
-        @Column(nullable = false)
+        @Column(nullable = false, columnDefinition = "text")
         private String jdDesc;
         private Integer jdSalMin;
         private Integer jdSalMax;

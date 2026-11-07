@@ -20,9 +20,11 @@ public class InterviewProcess {
     private LocalDateTime ipCreatedAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private InterviewProcessStatus ipStatus = InterviewProcessStatus.UNSCHEDULED;
 
     private LocalDateTime ipScheduledAt;
+    @Column(columnDefinition = "text")
     private String ipFeedback;
 
     @ManyToOne()
@@ -40,6 +42,6 @@ public class InterviewProcess {
     private Account interviewer;
 
     @ManyToOne
-    @JoinColumn(name = "im_id", nullable = false)
+    @JoinColumn(name = "im_id")
     private InterviewMethod interviewMethod;
 }

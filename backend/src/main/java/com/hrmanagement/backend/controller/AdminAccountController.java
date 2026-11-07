@@ -38,7 +38,7 @@ public class AdminAccountController {
 
     @PostMapping("/create")
     public ResponseEntity<Void> createAdminAccount(
-            @RequestBody AdminAccountCreateDTO dto) {
+            @RequestBody @jakarta.validation.Valid AdminAccountCreateDTO dto) {
         accountService.createAdminAccount(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

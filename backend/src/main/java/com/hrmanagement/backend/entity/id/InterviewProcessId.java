@@ -18,6 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class InterviewProcessId implements Serializable {
+    @Column(name = "app_id")
     private UUID appId;
+    @Column(name = "is_id")
     private UUID isId;
 }

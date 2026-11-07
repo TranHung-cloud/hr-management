@@ -15,5 +15,8 @@ public class AdminAccountCreateDTO {
     @NotNull(message = "Vai trò là bắt buộc")
     private UUID roleId;
 
+    @NotNull(message = "Giới tính là bắt buộc")
+    private Boolean accIsMale;
+
     private UUID depId;
 }

@@ -22,6 +22,7 @@ public class CustomUserDetails implements UserDetails {
     private final String accPassword;
     private final String accName;
     private final AppRole appRole;
+    private final boolean enabled;
     private final Collection<? extends GrantedAuthority> authorities;
 
     public static CustomUserDetails build(Account account) {
@@ -35,6 +36,7 @@ public class CustomUserDetails implements UserDetails {
                 account.getAccPassword(),
                 account.getAccName(),
                 appRole,
+                account.getAccStatus() == com.hrmanagement.backend.entity.enums.AccountStatus.ACTIVE,
                 authorities
         );
     }
@@ -71,6 +73,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

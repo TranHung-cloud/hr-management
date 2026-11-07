@@ -25,7 +25,7 @@ public class RecruitmentController {
         return service.dashboard(from, to);
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/pipeline")
     public PageResult<ApplicationView> pipeline(@RequestParam(required = false) String query,
             @RequestParam(required = false) UUID jobId, @RequestParam(required = false) ApplicationStatus status,
             @RequestParam(required = false) UUID stageId,
@@ -42,33 +42,33 @@ public class RecruitmentController {
         return service.schedule(from, to, interviewerId, jobId, stageId, status, query, page, size);
     }
 
-    @GetMapping("/interviews/{candidateId}/{jobId}/{stageId}")
-    public Detail detail(@PathVariable UUID candidateId, @PathVariable UUID jobId, @PathVariable UUID stageId) {
-        return service.detail(candidateId, jobId, stageId);
+    @GetMapping("/interviews/{appId}/{stageId}")
+    public Detail detail(@PathVariable UUID appId, @PathVariable UUID stageId) {
+        return service.detail(appId, stageId);
     }
 
-    @PostMapping("/applications/{candidateId}/{jobId}/stages")
-    public InterviewView move(@PathVariable UUID candidateId, @PathVariable UUID jobId, @RequestBody @Valid MoveStage request) {
-        return service.move(candidateId, jobId, request);
+    @PostMapping("/applications/{appId}/stages")
+    public InterviewView move(@PathVariable UUID appId, @RequestBody @Valid MoveStage request) {
+        return service.move(appId, request);
     }
 
-    @PostMapping("/applications/{candidateId}/{jobId}/interviews")
-    public InterviewView createSchedule(@PathVariable UUID candidateId, @PathVariable UUID jobId, @RequestBody @Valid CreateSchedule request) {
-        return service.createSchedule(candidateId, jobId, request);
+    @PostMapping("/applications/{appId}/interviews")
+    public InterviewView createSchedule(@PathVariable UUID appId, @RequestBody @Valid CreateSchedule request) {
+        return service.createSchedule(appId, request);
     }
 
-    @PutMapping("/interviews/{candidateId}/{jobId}/{stageId}/schedule")
-    public InterviewView schedule(@PathVariable UUID candidateId, @PathVariable UUID jobId, @PathVariable UUID stageId, @RequestBody @Valid Schedule request) {
-        return service.reschedule(candidateId, jobId, stageId, request);
+    @PutMapping("/interviews/{appId}/{stageId}/schedule")
+    public InterviewView schedule(@PathVariable UUID appId, @PathVariable UUID stageId, @RequestBody @Valid Schedule request) {
+        return service.reschedule(appId, stageId, request);
     }
 
-    @PutMapping("/interviews/{candidateId}/{jobId}/{stageId}/feedback")
-    public InterviewView feedback(@PathVariable UUID candidateId, @PathVariable UUID jobId, @PathVariable UUID stageId, @RequestBody @Valid Feedback request) {
-        return service.feedback(candidateId, jobId, stageId, request);
+    @PutMapping("/interviews/{appId}/{stageId}/feedback")
+    public InterviewView feedback(@PathVariable UUID appId, @PathVariable UUID stageId, @RequestBody @Valid Feedback request) {
+        return service.feedback(appId, stageId, request);
     }
 
-    @PutMapping("/applications/{candidateId}/{jobId}/status")
-    public ApplicationView decision(@PathVariable UUID candidateId, @PathVariable UUID jobId, @RequestBody @Valid Decision request) {
-        return service.decide(candidateId, jobId, request);
+    @PutMapping("/applications/{appId}/status")
+    public ApplicationView decision(@PathVariable UUID appId, @RequestBody @Valid Decision request) {
+        return service.decide(appId, request);
     }
 }

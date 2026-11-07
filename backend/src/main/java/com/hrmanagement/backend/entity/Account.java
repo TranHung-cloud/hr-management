@@ -1,7 +1,8 @@
 package com.hrmanagement.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
 import com.hrmanagement.backend.entity.enums.AccountStatus;
@@ -23,10 +24,11 @@ public class Account {
     private LocalDate accDob;
     private String accPhone;
     @Enumerated(EnumType.STRING)
-    private AccountStatus accStatus;
+    @Column(nullable = false)
+    private AccountStatus accStatus = AccountStatus.ACTIVE;
 
     @ManyToOne
-    @JoinColumn(name = "roleId", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @ManyToOne

@@ -37,7 +37,7 @@ public class AdminApplicationController {
         return ResponseEntity.ok(applicationService.getApplicationsPage(depId, ipStatus, keyword, pageable));
     }
 
-    @PostMapping("/acept")
+    @PostMapping({"/accept", "/acept"})
     public ResponseEntity<Void> acceptApplications(
             @RequestBody List<UUID> applicationIds) {
         applicationService.acceptApplications(applicationIds);

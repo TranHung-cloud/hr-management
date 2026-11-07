@@ -19,6 +19,10 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID appId;
 
+    @Column(name = "app_expcted_sal")
+    private Integer appExpctedSal;
+    private Integer appProposalSal;
+
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime appCreatedAt;
@@ -27,10 +31,10 @@ public class Application {
     private ApplicationStatus appStatus = ApplicationStatus.SUBMITTED;
 
     @ManyToOne
-    @JoinColumn(name = "candId", nullable = false)
+    @JoinColumn(name = "cand_id", nullable = false)
     private Candidate candidate;
 
     @ManyToOne
-    @JoinColumn(name = "jdId", nullable = false)
+    @JoinColumn(name = "jd_id", nullable = false)
     private JobDescription jobDescription;
 }

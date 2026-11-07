@@ -67,3 +67,12 @@ frontend/AGENTS.md
 frontend/README.md
 
 graphify-out/
+
+# Candidate CV files are private runtime data.
+backend/uploads/
+
+# Backend tests stay local.
+/backend/src/test/
+
+# Local working notes and logs.
+/log/
