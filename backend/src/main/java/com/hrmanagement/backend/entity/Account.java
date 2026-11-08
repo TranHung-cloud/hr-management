@@ -36,6 +36,6 @@ public class Account {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "depId")
+    @JoinColumn(name = "dep_id")
     private Department department;
 }
