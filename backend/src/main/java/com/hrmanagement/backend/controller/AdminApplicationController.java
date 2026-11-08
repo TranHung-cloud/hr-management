@@ -3,6 +3,7 @@ package com.hrmanagement.backend.controller;
 import com.hrmanagement.backend.dto.ApplicationDetailViewDTO;
 import com.hrmanagement.backend.dto.ApplicationViewDTO;
 import com.hrmanagement.backend.entity.enums.InterviewProcessStatus;
+import com.hrmanagement.backend.service.AccountService;
 import com.hrmanagement.backend.service.ApplicationService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class AdminApplicationController {
         return ResponseEntity.ok(applicationService.getApplicationsPage(depId, ipStatus, keyword, pageable));
     }
 
-    @PostMapping("/acept")
+    @PostMapping("/accept")
     public ResponseEntity<Void> acceptApplications(
             @RequestBody List<UUID> applicationIds) {
         applicationService.acceptApplications(applicationIds);
