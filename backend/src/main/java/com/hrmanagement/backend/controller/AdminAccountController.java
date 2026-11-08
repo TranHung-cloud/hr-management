@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +48,20 @@ public class AdminAccountController {
     public ResponseEntity<Void> resetAdminPassword(
             @RequestBody UUID accId) {
         accountService.resetAdminPassword(accId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/set-inactive")
+    public ResponseEntity<Void> inactiveAccounts(
+            @RequestBody List<UUID> accIds) {
+        accountService.inactiveAccounts(accIds);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/set-active")
+    public ResponseEntity<Void> activeAccounts(
+            @RequestBody List<UUID> accIds) {
+        accountService.activeAccounts(accIds);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

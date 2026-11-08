@@ -3,7 +3,6 @@ package com.hrmanagement.backend.controller;
 import com.hrmanagement.backend.dto.ApplicationDetailViewDTO;
 import com.hrmanagement.backend.dto.ApplicationViewDTO;
 import com.hrmanagement.backend.entity.enums.InterviewProcessStatus;
-import com.hrmanagement.backend.service.AccountService;
 import com.hrmanagement.backend.service.ApplicationService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

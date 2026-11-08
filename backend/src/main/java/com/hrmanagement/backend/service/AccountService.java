@@ -33,6 +33,7 @@ import com.hrmanagement.backend.entity.Candidate;
 import com.hrmanagement.backend.entity.Department;
 import com.hrmanagement.backend.entity.Role;
 import com.hrmanagement.backend.entity.Skill;
+import com.hrmanagement.backend.entity.enums.AccountStatus;
 import com.hrmanagement.backend.notification.event.AdminAccountCreatedEvent;
 import com.hrmanagement.backend.notification.event.AdminPasswordResetEvent;
 import com.hrmanagement.backend.repository.AccountRepository;
@@ -217,6 +218,38 @@ public class AccountService {
         eventPublisher.publishEvent(new AdminPasswordResetEvent(
                 account.getAccEmail(),
                 rawPassword));
+    }
+
+    @PreAuthorize("hasRole('HR_MANAGER')")
+    @Transactional
+    public void inactiveAccounts(List<UUID> accIds) {
+        if (accIds == null || accIds.isEmpty())
+            return;
+        for (UUID accId : accIds) {
+            Account account = accountRepository.findById(accId)
+                    .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản với id: " + accId));
+            if (account.getAccStatus() == AccountStatus.INACTIVE) {
+                throw new IllegalArgumentException("Tài khoản với id: " + accId + " đã bị vô hiệu hóa");
+            }
+            account.setAccStatus(AccountStatus.INACTIVE);
+            accountRepository.save(account);
+        }
+    }
+
+    @PreAuthorize("hasRole('HR_MANAGER')")
+    @Transactional
+    public void activeAccounts(List<UUID> accIds) {
+        if (accIds == null || accIds.isEmpty())
+            return;
+        for (UUID accId : accIds) {
+            Account account = accountRepository.findById(accId)
+                    .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản với id: " + accId));
+            if (account.getAccStatus() == AccountStatus.ACTIVE) {
+                throw new IllegalArgumentException("Tài khoản với id: " + accId + " đã được kích hoạt");
+            }
+            account.setAccStatus(AccountStatus.ACTIVE);
+            accountRepository.save(account);
+        }
     }
 
     private String generateRandomPassword(int length) {
