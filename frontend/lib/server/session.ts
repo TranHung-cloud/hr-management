@@ -20,7 +20,7 @@ export function readSession(value: string | undefined, secret: string): Session 
     const decipher = createDecipheriv("aes-256-gcm", key(secret), bytes.subarray(0, 12));
     decipher.setAuthTag(bytes.subarray(12, 28));
     const session: Session = JSON.parse(Buffer.concat([decipher.update(bytes.subarray(28)), decipher.final()]).toString("utf8"));
-    if (typeof session.username !== "string" || typeof session.authorization !== "string" || !session.authorization.startsWith("Basic ") || !Number.isFinite(session.expiresAt) || session.expiresAt <= Date.now()) return null;
+    if (typeof session.username !== "string" || typeof session.authorization !== "string" || !session.authorization.startsWith("Bearer ") || !Number.isFinite(session.expiresAt) || session.expiresAt <= Date.now()) return null;
     return session;
   } catch { return null; }
 }

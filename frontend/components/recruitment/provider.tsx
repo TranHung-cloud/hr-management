@@ -23,7 +23,7 @@ export function RecruitmentProvider({ children }: { children: ReactNode }) {
   if (user === undefined) return <div className="loading-screen" role="status">Đang kiểm tra phiên đăng nhập…</div>;
   if (!user) return <Login onLogin={setUser} />;
   if (user.roles.includes("CANDIDATE")) return <div className="login-screen"><section className="panel login-form"><h1>Xin chào {user.displayName || user.username}</h1><p>Bạn đã đăng nhập bằng tài khoản ứng viên.</p><p className="muted">Trang quản lý tuyển dụng dành cho nhân sự nội bộ. Cổng nộp hồ sơ ứng viên chưa được triển khai.</p><button className="button secondary" onClick={() => void logout()}>Đăng xuất</button></section></div>;
-  return <RecruitmentContext.Provider value={{ revision, refresh: () => setRevision(n => n + 1), notify: setMessage, username: user.username, displayName: user.displayName || user.username, accountId: user.accountId, canManage: user.roles.includes("ADMIN"), logout }}>{children}{message && <div className="toast" role="status"><span>{message}</span><button aria-label="Đóng thông báo" onClick={() => setMessage("")}>×</button></div>}</RecruitmentContext.Provider>;
+  return <RecruitmentContext.Provider value={{ revision, refresh: () => setRevision(n => n + 1), notify: setMessage, username: user.username, displayName: user.displayName || user.username, accountId: user.accountId, canManage: user.roles.includes("HR_MANAGER"), logout }}>{children}{message && <div className="toast" role="status"><span>{message}</span><button aria-label="Đóng thông báo" onClick={() => setMessage("")}>×</button></div>}</RecruitmentContext.Provider>;
 }
 function Login({ onLogin }: { onLogin: (user: Identity) => void }) {
   const [busy, setBusy] = useState(false); const [error, setError] = useState("");
