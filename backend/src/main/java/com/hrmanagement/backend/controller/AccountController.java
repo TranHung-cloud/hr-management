@@ -25,13 +25,13 @@ public class AccountController {
     private final AccountService accountService;
     private final ObjectMapper objectMapper;
 
-    @GetMapping("/me")
+    @GetMapping()
     public ResponseEntity<Object> getCurrentAccountDetails() {
         return ResponseEntity.ok(
                 accountService.getCurrentAccountDetails());
     }
 
-    @PutMapping("/me")
+    @PutMapping("/update")
     public ResponseEntity<Void> updateCurrentAccount(
             @RequestBody JsonNode data) {
         Account account = accountService.getCurrentAccount();
