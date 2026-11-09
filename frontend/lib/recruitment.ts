@@ -1,6 +1,6 @@
 import type { InterviewKey, InterviewStatus, ApplicationStatus } from "@/types/api";
 export const statusLabels: Record<InterviewStatus, string> = { UNSCHEDULED: "Chưa lên lịch", SCHEDULED: "Chờ phỏng vấn", COMPLETED: "Đã hoàn tất", REJECTED: "Không đạt" };
-export const applicationLabels: Record<ApplicationStatus, string> = { SUBMITTED: "Đã nộp hồ sơ", PENDING: "Đang xét tuyển", ACCEPTED: "Đã tuyển", REJECTED: "Từ chối" };
+export const applicationLabels: Record<ApplicationStatus, string> = { SUBMITTED: "Đang ứng tuyển", ACCEPTED: "Đã tuyển", REJECTED: "Từ chối" };
 export function initials(name: string) { return name.trim().split(/\s+/).slice(-2).map(s => s[0] || "").join("") || "?"; }
 export function dateLabel(date?: string | null) { return date ? date.slice(0, 10).split("-").reverse().join("/") : "Chưa lên lịch"; }
 export function timeLabel(value?: string | null) { return value ? value.slice(11, 16) : "—"; }

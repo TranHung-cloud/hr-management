@@ -7,25 +7,58 @@ import java.util.*;
 
 @Component
 public class RecruitmentMapper {
-    public Stage stage(InterviewStage s) { return new Stage(s.getIsId(), s.getIsName(), s.getIsOrder()); }
-    public Job job(JobDescription j) { return new Job(j.getJobId(), j.getJobTitle(), j.getDepartment() == null ? null : j.getDepartment().getDepName(), j.getJobStatus()); }
-    public Option account(Account a) { return a == null ? null : new Option(a.getAccId(), a.getAccName()); }
+    public Stage stage(InterviewStage s) {
+        return new Stage(s.getIsId(), s.getIsName(), s.getIsOrder());
+    }
+
+    public Job job(JobDescription j) {
+        return new Job(j.getJdId(), j.getJdTitle(), j.getDepartment() == null ? null : j.getDepartment().getDepName(), j.getJdStatus());
+    }
+
+    public Option account(Account a) {
+        return a == null ? null : new Option(a.getAccId(), a.getAccName());
+    }
+
     public CandidateInfo candidate(Candidate c) {
         Account a = c.getAccount();
-        return new CandidateInfo(c.getCandId(), a == null ? null : a.getAccName(), a == null ? null : a.getAccEmail(),
-                a == null ? null : a.getAccPhone(), c.getCandCvPath(), c.getCandExpYear(),
-                c.getDt() == null ? null : c.getDt().getDtName(), c.getCandMajor(),
-                c.getSkills() == null ? List.of() : c.getSkills().stream().map(Skill::getSkillName).filter(Objects::nonNull).sorted().toList());
+        return new CandidateInfo(
+                c.getCandId(),
+                a == null ? null : a.getAccName(),
+                a == null ? null : a.getAccEmail(),
+                a == null ? null : a.getAccPhone(),
+                c.getCandCvPath(),
+                c.getCandExpYear(),
+                c.getDt() == null ? null : c.getDt().getDtName(),
+                c.getCandMajor(),
+                c.getSkills() == null ? List.of() : c.getSkills().stream().map(Skill::getSkillName).filter(Objects::nonNull).sorted().toList()
+        );
     }
+
     public InterviewView interview(InterviewProcess i) {
         Application a = i.getApplication();
-        return new InterviewView(new InterviewKey(i.getIpId().getCandId(), i.getIpId().getJobId(), i.getIpId().getIsId()),
-                candidate(a.getCandidate()), job(a.getJobDescription()), stage(i.getInterviewStage()), i.getStatus(),
-                i.getCreatedAt(), i.getScheduledAt(), i.getFeedback(), account(i.getInterviewer()),
-                i.getInterviewMethod() == null ? null : new Option(i.getInterviewMethod().getImId(), i.getInterviewMethod().getImName()), a.getStatus());
+        return new InterviewView(
+                new InterviewKey(a.getCandidate().getCandId(), a.getJobDescription().getJdId(), i.getInterviewStage().getIsId()),
+                candidate(a.getCandidate()),
+                job(a.getJobDescription()),
+                stage(i.getInterviewStage()),
+                i.getIpStatus(),
+                i.getIpCreatedAt(),
+                i.getIpScheduledAt(),
+                i.getIpFeedback(),
+                account(i.getInterviewer()),
+                i.getInterviewMethod() == null ? null : new Option(i.getInterviewMethod().getImId(), i.getInterviewMethod().getImName()),
+                a.getAppStatus()
+        );
     }
+
     public ApplicationView application(Application a, InterviewProcess current) {
-        return new ApplicationView(a.getAppId().getCandId(), a.getAppId().getJobId(), candidate(a.getCandidate()),
-                job(a.getJobDescription()), a.getStatus(), current == null ? null : interview(current));
+        return new ApplicationView(
+                a.getCandidate().getCandId(),
+                a.getJobDescription().getJdId(),
+                candidate(a.getCandidate()),
+                job(a.getJobDescription()),
+                a.getAppStatus(),
+                current == null ? null : interview(current)
+        );
     }
 }

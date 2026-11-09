@@ -4,7 +4,7 @@ import { readSession, SESSION_COOKIE } from "@/lib/server/session";
 
 const uuid = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 function allowed(method: string, path: string) {
-  if (method === "GET") return /^(dashboard|lookups|applications|interviews)$/.test(path) || new RegExp(`^interviews/${uuid}/${uuid}/${uuid}$`).test(path);
+  if (method === "GET") return /^(dashboard|lookups|pipeline|applications|interviews)$/.test(path) || new RegExp(`^interviews/${uuid}/${uuid}/${uuid}$`).test(path);
   if (method === "POST") return new RegExp(`^applications/${uuid}/${uuid}/(stages|interviews)$`).test(path);
   return method === "PUT" && (new RegExp(`^interviews/${uuid}/${uuid}/${uuid}/(schedule|feedback)$`).test(path) || new RegExp(`^applications/${uuid}/${uuid}/status$`).test(path));
 }

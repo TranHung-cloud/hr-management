@@ -1,21 +1,25 @@
 package com.hrmanagement.backend.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.hrmanagement.backend.entity.Application;
-import com.hrmanagement.backend.entity.id.ApplicationId;
 import com.hrmanagement.backend.entity.enums.ApplicationStatus;
+
 import jakarta.persistence.LockModeType;
-import org.springframework.data.jpa.repository.*;
-import java.util.Optional;
 
 public interface ApplicationRepository extends JpaRepository<Application, UUID>, JpaSpecificationExecutor<Application> {
-    long countByStatus(ApplicationStatus status);
+    long countByAppStatus(ApplicationStatus appStatus);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select a from Application a where a.appId = :id")
-    Optional<Application> findLockedById(ApplicationId id);
+    @Query("select a from Application a where a.candidate.candId = :candId and a.jobDescription.jdId = :jdId")
+    Optional<Application> findLockedByCandidateAndJob(@Param("candId") UUID candId, @Param("jdId") UUID jdId);
+
+    Optional<Application> findByCandidate_CandIdAndJobDescription_JdId(UUID candId, UUID jdId);
 }

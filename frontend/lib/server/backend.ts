@@ -4,6 +4,7 @@ export function backendUrl(path: string) {
   return new URL(`/api/admin/${path}`, base);
 }
 export function backendIdentityUrl() { return new URL("/api/auth/me", backendUrl("")); }
+export function backendLoginUrl() { return new URL("/api/auth/login", backendUrl("")); }
 export function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return false;

@@ -67,7 +67,8 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/admin/jobs/**", "/api/admin/campaigns/**",
                                                                 "/api/admin/candidates/**")
                                                 .hasAnyRole(AppRole.HR_MANAGER.name(), AppRole.RECRUITER.name())
-                                                .requestMatchers("/api/admin/interviews/**")
+                                                .requestMatchers("/api/admin/interviews/**", "/api/admin/pipeline/**",
+                                                                "/api/admin/lookups/**", "/api/admin/dashboard/**")
                                                 .hasAnyRole(AppRole.HR_MANAGER.name(), AppRole.RECRUITER.name(),
                                                                 AppRole.INTERVIEWER.name())
                                                 .requestMatchers("/api/admin/**")

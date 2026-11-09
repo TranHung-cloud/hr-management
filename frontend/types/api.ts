@@ -1,4 +1,4 @@
-export type ApplicationStatus = "SUBMITTED" | "PENDING" | "ACCEPTED" | "REJECTED";
+export type ApplicationStatus = "SUBMITTED" | "ACCEPTED" | "REJECTED";
 export type InterviewStatus = "UNSCHEDULED" | "SCHEDULED" | "COMPLETED" | "REJECTED";
 export interface Option { id: string; name: string | null }
 export interface Stage extends Option { order: number | null }

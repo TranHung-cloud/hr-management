@@ -14,7 +14,7 @@ export default function DashboardPage() {
   const [showSchedule, setShowSchedule] = useState(false);
   const summary = useApi<Dashboard>("dashboard");
   const upcoming = useApi<PageResult<Interview>>(`interviews?status=SCHEDULED&from=${today()}&size=4`);
-  const applications = useApi<PageResult<Application>>("applications?size=5");
+  const applications = useApi<PageResult<Application>>("pipeline?size=5");
   const d = summary.data;
   const max = Math.max(2, ...(d?.dailyInterviews.map(day => day.count) || []));
   const countStages = d ? [...d.stages.map(s => ({ name: s.name, count: s.count })), { name: "Chưa vào vòng", count: d.applicationsWithoutStage }] : [];
