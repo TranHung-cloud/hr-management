@@ -12,9 +12,9 @@ import type { Dashboard, Interview, Application, PageResult } from "@/types/api"
 export default function DashboardPage() {
   const { canManage } = useRecruitment();
   const [showSchedule, setShowSchedule] = useState(false);
-  const summary = useApi<Dashboard>("dashboard");
-  const upcoming = useApi<PageResult<Interview>>(`interviews?status=SCHEDULED&from=${today()}&size=4`);
-  const applications = useApi<PageResult<Application>>("pipeline?size=5");
+  const summary = useApi<Dashboard>("admin/dashboard");
+  const upcoming = useApi<PageResult<Interview>>(`admin/interviews?status=SCHEDULED&from=${today()}&size=4`);
+  const applications = useApi<PageResult<Application>>("admin/pipeline?size=5");
   const d = summary.data;
   const max = Math.max(2, ...(d?.dailyInterviews.map(day => day.count) || []));
   const countStages = d ? [...d.stages.map(s => ({ name: s.name, count: s.count })), { name: "Chưa vào vòng", count: d.applicationsWithoutStage }] : [];

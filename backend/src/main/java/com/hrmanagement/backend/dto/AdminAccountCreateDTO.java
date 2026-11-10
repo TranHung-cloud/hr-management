@@ -15,5 +15,6 @@ public class AdminAccountCreateDTO {
     @NotNull(message = "Vai trò là bắt buộc")
     private UUID roleId;
 
+    @NotNull(message = "Phòng ban là bắt buộc")
     private UUID depId;
 }

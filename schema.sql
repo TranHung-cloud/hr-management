@@ -56,7 +56,7 @@ CREATE TABLE account (
     acc_name VARCHAR(255),
     acc_email VARCHAR(255) NOT NULL UNIQUE,
     acc_password VARCHAR(255) NOT NULL,
-    acc_is_male BOOLEAN NOT NULL,
+    acc_is_male BOOLEAN,
     acc_dob DATE,
     acc_phone VARCHAR(255),
     acc_status VARCHAR(255) NOT NULL DEFAULT 'ACTIVE' CHECK (acc_status IN ('ACTIVE', 'INACTIVE')),

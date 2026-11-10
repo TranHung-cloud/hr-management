@@ -22,7 +22,7 @@ function DetailContent({ detail }: { detail: Detail }) {
   const i = detail.interview; const router = useRouter(); const { refresh, notify, canManage, accountId } = useRecruitment();
   const [schedule, setSchedule] = useState(false); const [tab, setTab] = useState("feedback"); const [feedback, setFeedback] = useState(i.feedback || "");
   const [status, setStatus] = useState(i.status === "REJECTED" ? "REJECTED" : "COMPLETED"); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
-  const lookups = useApi<Lookups>("lookups");
+  const lookups = useApi<Lookups>("admin/lookups");
   const closed = i.applicationStatus === "ACCEPTED" || i.applicationStatus === "REJECTED";
   const canSchedule = canManage && !closed && (i.status === "SCHEDULED" || i.status === "UNSCHEDULED");
   async function changeStage(stageId: string) {

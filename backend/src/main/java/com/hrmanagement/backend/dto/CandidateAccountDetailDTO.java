@@ -1,7 +1,10 @@
 package com.hrmanagement.backend.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+
+import com.hrmanagement.backend.entity.enums.AccountStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +25,7 @@ public class CandidateAccountDetailDTO {
     private Integer candExpYear;
     private String candCvPath;
     private String candMajor;
+    private List<String> candSkills;
+    private String candEducation;
+    private AccountStatus accStatus;
 }

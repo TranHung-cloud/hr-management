@@ -13,8 +13,8 @@ export default function PipelinePage() {
   const { refresh, notify, canManage } = useRecruitment();
   const [query, setQuery] = useState(""); const [job, setJob] = useState(""); const [page, setPage] = useState(0);
   const [schedule, setSchedule] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [dragging, setDragging] = useState<string | null>(null);
-  const lookups = useApi<Lookups>("lookups");
-  const result = useApi<PageResult<Application>>(`pipeline?size=20&page=${page}&query=${encodeURIComponent(query)}${job ? `&jobId=${job}` : ""}`);
+  const lookups = useApi<Lookups>("admin/lookups");
+  const result = useApi<PageResult<Application>>(`admin/pipeline?size=20&page=${page}&query=${encodeURIComponent(query)}${job ? `&jobId=${job}` : ""}`);
   const rows = result.data?.content || [];
   const columns = [{ id: "", name: "Chưa vào vòng", order: -Infinity }, ...(lookups.data?.stages || [])];
   async function move(key: string, stageId: string) {

@@ -3,6 +3,8 @@ package com.hrmanagement.backend.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.hrmanagement.backend.entity.enums.AccountStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -21,4 +23,5 @@ public class AdminAccountDetailDTO {
     private String accPhone;
     private String roleName;
     private String depName;
+    private AccountStatus accStatus;
 }

@@ -10,7 +10,7 @@ export function ScheduleForm({ onClose, interview }: { onClose: () => void; inte
   const { refresh, notify } = useRecruitment();
   const [query, setQuery] = useState(""); const [page, setPage] = useState(0); const [selectedKey, setSelectedKey] = useState("");
   const [busy, setBusy] = useState(false); const [error, setError] = useState("");
-  const lookups = useApi<Lookups>("lookups");
+  const lookups = useApi<Lookups>("admin/lookups");
   const applications = useApi<PageResult<Application>>(interview ? null : `pipeline?status=SUBMITTED&page=${page}&size=20&query=${encodeURIComponent(query)}`);
   const [allStatuses, setAllStatuses] = useState(false);
   const submitted = useApi<PageResult<Application>>(!interview && allStatuses ? `pipeline?page=${page}&size=20&query=${encodeURIComponent(query)}` : null);

@@ -29,7 +29,7 @@ public class Account {
     private LocalDate accDob;
     private String accPhone;
     @Enumerated(EnumType.STRING)
-    private AccountStatus accStatus;
+    private AccountStatus accStatus = AccountStatus.ACTIVE;
 
     @ManyToOne
     @JoinColumn(name = "roleId", nullable = false)
