@@ -1,6 +1,6 @@
 import { Suspense, type ReactNode } from "react";
 import { CareerBrand } from "@/components/careers/shared";
-import { AuthBackLink, AuthMain, AuthStory } from "@/components/auth/layout-parts";
+import { AuthBackLink, AuthMain } from "@/components/auth/layout-parts";
 
 
 export function AuthLayout({ children }: { children: ReactNode }) {
@@ -8,7 +8,6 @@ export function AuthLayout({ children }: { children: ReactNode }) {
     <div className="auth-app">
       <header className="auth-header"><CareerBrand /><AuthBackLink /></header>
       <AuthMain>
-        <AuthStory />
         <section className="auth-form-panel">{children}</section>
       </AuthMain>
       <footer className="auth-footer">RecruitHR · Kết nối công việc với người phù hợp.</footer>

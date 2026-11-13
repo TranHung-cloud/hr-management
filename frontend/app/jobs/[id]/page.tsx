@@ -34,7 +34,7 @@ export default function JobDetailPage() {
             setReceipt(result); applied.reload();
           } catch (e) { setError(e instanceof Error ? e.message : "Chưa gửi được hồ sơ."); applied.reload(); } finally { setBusy(false); }
         }}><div className="career-cv-summary"><FileText size={19} /><span>CV trong hồ sơ<strong>{profile.data.name}</strong></span><Link href={`/candidate/profile?next=${next}`}>Kiểm tra</Link></div><label>Mức lương mong muốn <span className="auth-optional">(tùy chọn)</span><input name="expectedSalary" type="number" min={0} max={2147483647} step={100000} placeholder="VNĐ / tháng" /></label><p className="career-apply-small">Hệ thống gửi thông tin và CV chung trong hồ sơ của bạn.</p>{error && <p className="career-error" role="alert">{error}</p>}<button className="career-button" disabled={busy}>{busy ? "Đang gửi hồ sơ…" : "Xác nhận ứng tuyển"}<ArrowRight size={16} /></button></form>}
-      </section><p className="career-privacy-note">CV không được cung cấp qua đường dẫn tải công khai.</p><button className="career-text-link career-mobile-back" onClick={() => router.push("/jobs")}>Xem vị trí khác</button></aside></div>
+      </section><button className="career-text-link career-mobile-back" onClick={() => router.push("/jobs")}>Xem vị trí khác</button></aside></div>
     </>}
   </div>;
 }

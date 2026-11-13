@@ -1,0 +1,13 @@
+# GEt http://localhost:8080/api/admin/applications
+
+# ### Accept applications
+# POST http://localhost:8080/api/admin/applications/reject
+# Content-Type: application/json
+
+# [
+#     "ca79d8c4-41a0-4d38-ab05-3a93f13b3535"
+# ]
+
+# GET http://localhost:8080/api/admin/applications/4826840b-8098-4d1e-b841-88bfd8754c57
+
+GET http://localhost:8080/api/accounts/me

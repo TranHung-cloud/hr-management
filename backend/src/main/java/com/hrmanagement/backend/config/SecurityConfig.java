@@ -1,6 +1,9 @@
 package com.hrmanagement.backend.config;
 
 import com.hrmanagement.backend.security.*;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
@@ -10,6 +13,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,43 +24,70 @@ import java.util.*;
 
 @Configuration
 @EnableMethodSecurity
+@RequiredArgsConstructor 
 public class SecurityConfig {
-    @Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
-    @Bean AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-    @Bean SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwt,
-            JwtAuthenticationEntryPoint entryPoint) throws Exception {
-        return http.csrf(c -> c.disable()).cors(Customizer.withDefaults())
-            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .exceptionHandling(e -> e.authenticationEntryPoint(entryPoint))
-            .authorizeHttpRequests(a -> a
-                .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-                .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/register-with-cv", "/api/public/**", "/error").permitAll()
-                .requestMatchers("/api/auth/me").authenticated()
-                .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
-                .requestMatchers("/api/admin/accounts/**", "/api/admin/departments/**", "/api/admin/system/**").hasRole("HR_MANAGER")
-                .requestMatchers(HttpMethod.GET, "/api/admin/**").hasAnyRole("HR_MANAGER", "RECRUITER", "INTERVIEWER")
-                .requestMatchers(HttpMethod.PUT, "/api/admin/interviews/*/*/feedback").hasAnyRole("HR_MANAGER", "RECRUITER", "INTERVIEWER")
-                .requestMatchers("/api/admin/**").hasAnyRole("HR_MANAGER", "RECRUITER")
-                .anyRequest().authenticated())
-            .httpBasic(b -> b.authenticationEntryPoint(entryPoint))
-            .addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class).build();
-    }
-    // The JWT filter belongs to the security chain, not both servlet/security chains.
-    @Bean FilterRegistrationBean<JwtAuthenticationFilter> jwtRegistration(JwtAuthenticationFilter filter) {
-        var registration = new FilterRegistrationBean<>(filter);
-        registration.setEnabled(false);
-        return registration;
-    }
-    @Bean CorsConfigurationSource corsConfigurationSource(
-            @Value("${app.cors.allowed-origins:http://localhost:3000,http://127.0.0.1:3000}") String origins) {
-        var config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.stream(origins.split(",")).map(String::trim).toList());
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;
+        private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+      
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+                return configuration.getAuthenticationManager();
+        }
+
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .cors(Customizer.withDefaults())
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
+                                .authorizeHttpRequests(auth -> auth
+                                                // 1. Public API: Đăng nhập, đăng ký, tra cứu tin public
+                                                .requestMatchers("/api/auth/**", "/api/public/**", "/error").permitAll()
+
+                                                // 2. Tiền tố /api/admin/**: CANDIDATE tuyệt đối không được truy cập.
+                                                // Trưởng phòng nhân sự (HR_MANAGER) có quyền toàn bộ /api/admin/**
+                                                // RECRUITER và INTERVIEWER chỉ được vào các endpoint admin được phân
+                                                // công
+                                                .requestMatchers("/api/admin/accounts/**", "/api/admin/departments/**",
+                                                                "/api/admin/system/**")
+                                                .hasRole(AppRole.HR_MANAGER.name())
+                                                .requestMatchers("/api/admin/jobs/**", "/api/admin/campaigns/**",
+                                                                "/api/admin/candidates/**")
+                                                .hasAnyRole(AppRole.HR_MANAGER.name(), AppRole.RECRUITER.name())
+                                                .requestMatchers("/api/admin/interviews/**", "/api/admin/pipeline/**",
+                                                                "/api/admin/lookups/**", "/api/admin/dashboard/**")
+                                                .hasAnyRole(AppRole.HR_MANAGER.name(), AppRole.RECRUITER.name(),
+                                                                AppRole.INTERVIEWER.name())
+                                                .requestMatchers("/api/admin/**")
+                                                .hasRole(AppRole.HR_MANAGER.name())
+
+                                                // 3. Các API không có tiền tố /api/admin/** (cho CANDIDATE và các role
+                                                // khác)
+                                                .anyRequest().authenticated());
+
+                http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+                return http.build();
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOriginPatterns(List.of("*"));
+                configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+                configuration.setAllowedHeaders(List.of("*"));
+                configuration.setAllowCredentials(true);
+
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                return source;
+        }
 }

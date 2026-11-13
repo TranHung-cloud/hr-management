@@ -18,5 +18,6 @@ public class AdminAccountCreateDTO {
     @NotNull(message = "Giới tính là bắt buộc")
     private Boolean accIsMale;
 
+    @NotNull(message = "Phòng ban là bắt buộc")
     private UUID depId;
 }

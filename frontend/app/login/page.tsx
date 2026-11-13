@@ -40,7 +40,6 @@ export default function LoginPage() {
   return <>
     <div className="auth-form-heading">
       <h2>Đăng nhập</h2>
-      <p>Bạn chưa có hồ sơ? <Link href={`/register?next=${nextQuery}`}>Tạo tài khoản ứng viên</Link></p>
     </div>
     <form className="auth-form" onSubmit={handleSubmit}>
       <fieldset disabled={busy}>
@@ -50,7 +49,7 @@ export default function LoginPage() {
       </fieldset>
       {error && <p className="career-error" role="alert">{error}</p>}
       <button className="career-button auth-submit" disabled={busy || !ready}>{busy ? "Đang đăng nhập…" : "Đăng nhập"}</button>
-      <p className="auth-role-note">Ứng viên vào trang tuyển dụng. Nhân sự và người phỏng vấn vào khu vực admin.</p>
     </form>
+    <p className="auth-form-footer">Chưa có tài khoản? <Link href={`/register?next=${nextQuery}`}>Tạo hồ sơ ứng viên</Link></p>
   </>;
 }

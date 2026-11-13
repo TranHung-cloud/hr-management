@@ -76,7 +76,7 @@ export default function RegisterPage() {
           <label>Chuyên ngành <span className="auth-optional">(tùy chọn)</span><input name="candMajor" maxLength={255} /></label>
           <label>Trình độ <span className="auth-optional">(tùy chọn)</span><select name="dtId" defaultValue=""><option value="">Chưa cung cấp</option>{filters.data?.degrees.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></label>
         </div>
-        <label className="auth-cv">CV dùng chung<input name="cv" type="file" accept="application/pdf,.pdf" required aria-describedby="cv-help" /><span id="cv-help">File PDF, tối đa 5 MB. Có thể cập nhật sau trong hồ sơ.</span></label>
+        <label className="auth-cv">CV<input name="cv" type="file" accept="application/pdf,.pdf" required aria-describedby="cv-help" /><span id="cv-help">File PDF, tối đa 5 MB. Có thể cập nhật sau trong hồ sơ.</span></label>
       </fieldset>
       {error && <p className="career-error" role="alert">{error}</p>}
       {created

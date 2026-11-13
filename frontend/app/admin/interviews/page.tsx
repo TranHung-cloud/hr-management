@@ -13,20 +13,20 @@ export default function PipelinePage() {
   const { refresh, notify, canManage } = useRecruitment();
   const [query, setQuery] = useState(""); const [job, setJob] = useState(""); const [page, setPage] = useState(0);
   const [schedule, setSchedule] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [dragging, setDragging] = useState<string | null>(null);
-  const lookups = useApi<Lookups>("lookups");
-  const result = useApi<PageResult<Application>>(`pipeline?size=20&page=${page}&query=${encodeURIComponent(query)}${job ? `&jobId=${job}` : ""}`);
+  const lookups = useApi<Lookups>("admin/lookups");
+  const result = useApi<PageResult<Application>>(`admin/pipeline?size=20&page=${page}&query=${encodeURIComponent(query)}${job ? `&jobId=${job}` : ""}`);
   const rows = result.data?.content || [];
   const columns = [{ id: "", name: "Chưa vào vòng", order: -Infinity }, ...(lookups.data?.stages || [])];
   async function move(key: string, stageId: string) {
     const a = rows.find(a => a.applicationId === key);
     if (!a || !stageId || a.currentInterview?.stage.id === stageId || busy || !canManage) return;
     setBusy(true); setError("");
-    try { await api(`applications/${a.applicationId}/stages`, { method: "POST", body: JSON.stringify({ stageId }) }); refresh(); notify("Đã chuyển vòng phỏng vấn."); }
+    try { await api(`admin/applications/${a.applicationId}/stages`, { method: "POST", body: JSON.stringify({ stageId }) }); refresh(); notify("Đã chuyển vòng phỏng vấn."); }
     catch (e) { setError(e instanceof Error ? e.message : "Không chuyển được vòng."); } finally { setBusy(false); setDragging(null); }
   }
   return <><div className="page-heading"><div><div className="eyebrow">Tuyển dụng / Quy trình phỏng vấn</div><h1>Mỗi ứng viên, một hành trình<span className="heading-dot">.</span></h1><p>Chuyển vòng giữ lại các buổi phỏng vấn trước đó.</p></div><button className="button primary" disabled={!canManage} onClick={() => setSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
     <div className="pipeline-toolbar"><label className="search-field"><Search size={17} /><input aria-label="Tìm ứng viên" placeholder="Tìm tên, email, vị trí..." value={query} onChange={e => { setQuery(e.target.value); setPage(0); }} /></label><select className="filter-select" aria-label="Lọc vị trí tuyển dụng" value={job} onChange={e => { setJob(e.target.value); setPage(0); }}><option value="">Tất cả vị trí</option>{lookups.data?.jobs.map(j => <option key={j.id} value={j.id}>{j.title}</option>)}</select><span className="result-count">{result.data?.totalElements ?? "…"} hồ sơ</span><Link href="/admin/interviews/schedule" className="button secondary">Lịch phỏng vấn</Link></div>
-    <div className="board-caption"><span>Số lượng trên từng cột thuộc trang đang xem</span><span>Chỉ chuyển tiến theo thứ tự vòng</span></div>
+    <br></br>
     <LoadState loading={result.loading || lookups.loading} error={result.error || lookups.error} reload={() => { result.reload(); lookups.reload(); }} />{error && <div className="api-error" role="alert">{error}</div>}
     {result.data && lookups.data && <><div className="kanban-board" aria-busy={busy}>{columns.map((stage, n) => {
       const items = rows.filter(a => (a.currentInterview?.stage.id || "") === stage.id);

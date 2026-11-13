@@ -1,7 +1,9 @@
 package com.hrmanagement.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -10,6 +12,8 @@ import com.hrmanagement.backend.entity.enums.AccountStatus;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,11 +28,10 @@ public class Account {
     private LocalDate accDob;
     private String accPhone;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private AccountStatus accStatus = AccountStatus.ACTIVE;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "roleId", nullable = false)
     private Role role;
 
     @ManyToOne

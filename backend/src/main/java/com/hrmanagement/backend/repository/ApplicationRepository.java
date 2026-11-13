@@ -1,18 +1,37 @@
 package com.hrmanagement.backend.repository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.hrmanagement.backend.entity.Application;
 import com.hrmanagement.backend.entity.enums.ApplicationStatus;
+
 import jakarta.persistence.LockModeType;
-import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
-import java.util.*;
+
 public interface ApplicationRepository extends JpaRepository<Application, UUID>, JpaSpecificationExecutor<Application> {
     @Query("select a from Application a where a.candidate.account.accId = :accountId and a.jobDescription.jdId = :jobId order by a.appCreatedAt desc, a.appId")
     List<Application> findCandidateApplications(@Param("accountId") UUID accountId, @Param("jobId") UUID jobId);
+
     default Optional<Application> findFirstByCandidate_AccIdAndJobId(UUID accountId, UUID jobId) {
-        return findCandidateApplications(accountId,jobId).stream().findFirst();
+        return findCandidateApplications(accountId, jobId).stream().findFirst();
     }
-    long countByAppStatus(ApplicationStatus status);
+
+    long countByAppStatus(ApplicationStatus appStatus);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select a from Application a where a.appId = :id")
-    Optional<Application> findLockedById(@Param("id") UUID id);
+    @Query("select a from Application a where a.appId = :appId")
+    Optional<Application> findLockedById(@Param("appId") UUID appId);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select a from Application a where a.candidate.candId = :candId and a.jobDescription.jdId = :jdId")
+    Optional<Application> findLockedByCandidateAndJob(@Param("candId") UUID candId, @Param("jdId") UUID jdId);
+
+    Optional<Application> findByCandidate_CandIdAndJobDescription_JdId(UUID candId, UUID jdId);
 }

@@ -17,7 +17,7 @@ export default function InterviewSchedulePage() {
   if (date) { params.set("from", date); params.set("to", date); }
   else if (tab === "today") { params.set("from", today()); params.set("to", today()); }
   else if (tab === "upcoming") params.set("from", today());
-  const result = useApi<PageResult<Interview>>(`interviews?${params}`);
+  const result = useApi<PageResult<Interview>>(`admin/interviews?${params}`);
   return <><div className="page-heading"><div><div className="eyebrow">Tuyển dụng / Lịch phỏng vấn</div><h1>Những cuộc gặp sắp tới<span className="heading-dot">.</span></h1><p>Sắp xếp lịch hẹn và xem kết quả từng vòng phỏng vấn.</p></div><button className="button primary" disabled={!canManage} onClick={() => setSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
     <div className="schedule-overview"><div><CalendarDays size={22} /><span><strong>Lịch phỏng vấn</strong><small>{dateLabel(today())} · UTC+7</small></span></div><Link className="button secondary" href="/admin/interviews">Xem quy trình Kanban</Link></div>
     <section className="panel schedule-panel"><div className="schedule-tabs" role="tablist" aria-label="Nhóm lịch phỏng vấn">{[{ id: "upcoming", label: "Sắp tới" }, { id: "today", label: "Hôm nay" }, { id: "completed", label: "Đã có kết quả" }, { id: "unscheduled", label: "Chưa lên lịch" }].map(t => <button role="tab" aria-selected={tab === t.id} key={t.id} className={tab === t.id ? "selected" : ""} onClick={() => { setTab(t.id); setPage(0); setDate(""); }}>{t.label}</button>)}</div>

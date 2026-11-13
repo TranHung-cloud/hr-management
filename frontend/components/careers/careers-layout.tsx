@@ -10,7 +10,6 @@ export function CareersLayout({ children }: { children: ReactNode }) {
       <main id="career-content" className="career-main">
         <Suspense fallback={<div className="career-container career-loading" role="status">Đang tải nội dung…</div>}>{children}</Suspense>
       </main>
-      <footer className="career-footer"><span>RecruitHR · Tuyển dụng & nhân sự</span><span>Một hồ sơ, dùng chung cho các lần ứng tuyển.</span></footer>
     </div>
   </Suspense>;
 }

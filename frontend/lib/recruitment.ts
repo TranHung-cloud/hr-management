@@ -6,5 +6,5 @@ export function dateLabel(date?: string | null) { return date ? date.slice(0, 10
 export function timeLabel(value?: string | null) { return value ? value.slice(11, 16) : "—"; }
 export function today() { return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Bangkok", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()); }
 export function detailHref(id: InterviewKey) { return `/admin/interviews/${id.applicationId}_${id.stageId}`; }
-export function interviewPath(id: InterviewKey) { return `interviews/${id.applicationId}/${id.stageId}`; }
+export function interviewPath(id: InterviewKey) { return `admin/interviews/${id.applicationId}/${id.stageId}`; }
 export const stageColors = ["#87938b", "#cba58d", "#34786e", "#b18c49", "#668b79", "#9c7870"];

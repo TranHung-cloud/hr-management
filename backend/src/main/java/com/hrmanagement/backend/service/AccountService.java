@@ -33,8 +33,8 @@ import com.hrmanagement.backend.entity.Candidate;
 import com.hrmanagement.backend.entity.Department;
 import com.hrmanagement.backend.entity.Role;
 import com.hrmanagement.backend.entity.Skill;
+import com.hrmanagement.backend.entity.enums.AccountStatus;
 import com.hrmanagement.backend.notification.event.AdminAccountCreatedEvent;
-import com.hrmanagement.backend.notification.event.AdminPasswordResetEvent;
 import com.hrmanagement.backend.repository.AccountRepository;
 import com.hrmanagement.backend.repository.CandidateRepository;
 import com.hrmanagement.backend.repository.DegreeTypeRepository;
@@ -205,19 +205,34 @@ public class AccountService {
 
     @PreAuthorize("hasRole('HR_MANAGER')")
     @Transactional
-    public void resetAdminPassword(UUID accId) {
-        Account account = accountRepository.findById(accId)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản"));
-        if (account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.name())
-                || account.getRole().getRoleName().equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
-            throw new IllegalArgumentException("Không thể reset mật khẩu cho tài khoản ứng viên");
+    public void inactiveAccounts(List<UUID> accIds) {
+        if (accIds == null || accIds.isEmpty())
+            return;
+        for (UUID accId : accIds) {
+            Account account = accountRepository.findById(accId)
+                    .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản với id: " + accId));
+            if (account.getAccStatus() == AccountStatus.INACTIVE) {
+                throw new IllegalArgumentException("Tài khoản với id: " + accId + " đã bị vô hiệu hóa");
+            }
+            account.setAccStatus(AccountStatus.INACTIVE);
+            accountRepository.save(account);
         }
-        String rawPassword = generateRandomPassword(10);
-        account.setAccPassword(passwordEncoder.encode(rawPassword));
-        accountRepository.save(account);
-        eventPublisher.publishEvent(new AdminPasswordResetEvent(
-                account.getAccEmail(),
-                rawPassword));
+    }
+
+    @PreAuthorize("hasRole('HR_MANAGER')")
+    @Transactional
+    public void activeAccounts(List<UUID> accIds) {
+        if (accIds == null || accIds.isEmpty())
+            return;
+        for (UUID accId : accIds) {
+            Account account = accountRepository.findById(accId)
+                    .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản với id: " + accId));
+            if (account.getAccStatus() == AccountStatus.ACTIVE) {
+                throw new IllegalArgumentException("Tài khoản với id: " + accId + " đã được kích hoạt");
+            }
+            account.setAccStatus(AccountStatus.ACTIVE);
+            accountRepository.save(account);
+        }
     }
 
     private String generateRandomPassword(int length) {
@@ -268,7 +283,12 @@ public class AccountService {
                     currentAccount.getAccPhone(),
                     candidate.getCandExpYear(),
                     candidate.getCandCvPath(),
-                    candidate.getCandMajor());
+                    candidate.getCandMajor(),
+                    candidate.getSkills() != null
+                            ? candidate.getSkills().stream().map(Skill::getSkillName).toList()
+                            : new ArrayList<>(),
+                    candidate.getDt().getDtName(),
+                    currentAccount.getAccStatus());
         } else {
             String depName = currentAccount.getDepartment() != null
                     ? currentAccount.getDepartment().getDepName()
@@ -281,7 +301,8 @@ public class AccountService {
                     currentAccount.getAccDob(),
                     currentAccount.getAccPhone(),
                     roleName,
-                    depName);
+                    depName,
+                    currentAccount.getAccStatus());
         }
     }
 
@@ -341,5 +362,53 @@ public class AccountService {
 
         accountRepository.save(currentAccount);
         candidateRepository.save(candidate);
+    }
+
+    @PreAuthorize("hasAnyRole('HR_MANAGER', 'RECRUITER', 'INTERVIEWER')")
+    @Transactional
+    public Object getAccountDetailsById(UUID accId) {
+        Account account = accountRepository.findById(accId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản với id: " + accId));
+        String roleName = account.getRole() != null
+                ? account.getRole().getRoleName()
+                : null;
+        if (roleName == null) {
+            throw new IllegalStateException("Tài khoản không có vai trò");
+        }
+        if (roleName.equalsIgnoreCase(AppRole.CANDIDATE.name())
+                || roleName.equalsIgnoreCase(AppRole.CANDIDATE.getVietnameseName())) {
+            Candidate candidate = candidateRepository.findByAccount_AccId(account.getAccId())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Không tìm thấy thông tin ứng viên cho tài khoản này"));
+            return new CandidateAccountDetailDTO(
+                    account.getAccId(),
+                    account.getAccName(),
+                    account.getAccEmail(),
+                    account.getAccIsMale(),
+                    account.getAccDob(),
+                    account.getAccPhone(),
+                    candidate.getCandExpYear(),
+                    candidate.getCandCvPath(),
+                    candidate.getCandMajor(),
+                    candidate.getSkills() != null
+                            ? candidate.getSkills().stream().map(Skill::getSkillName).toList()
+                            : new ArrayList<>(),
+                    candidate.getDt().getDtName(),
+                    account.getAccStatus());
+        } else {
+            String depName = account.getDepartment() != null
+                    ? account.getDepartment().getDepName()
+                    : null;
+            return new AdminAccountDetailDTO(
+                    account.getAccId(),
+                    account.getAccName(),
+                    account.getAccEmail(),
+                    account.getAccIsMale(),
+                    account.getAccDob(),
+                    account.getAccPhone(),
+                    roleName,
+                    depName,
+                    account.getAccStatus());
+        }
     }
 }

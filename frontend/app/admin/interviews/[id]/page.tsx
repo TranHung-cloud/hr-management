@@ -14,7 +14,7 @@ export default function InterviewDetailPage() {
   const { id } = useParams<{ id: string }>();
   const parts = id.split("_");
   const valid = parts.length === 2 && parts.every(p => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(p));
-  const result = useApi<Detail>(valid ? `interviews/${parts.join("/")}` : null);
+  const result = useApi<Detail>(valid ? `admin/interviews/${parts.join("/")}` : null);
   if (!valid) return <Empty>Đường dẫn phỏng vấn không hợp lệ. <Link className="text-link" href="/admin/interviews/schedule">Về lịch phỏng vấn</Link></Empty>;
   return <><LoadState loading={result.loading} error={result.error} reload={result.reload} />{result.data && <DetailContent key={`${id}:${result.data.interview.status}:${result.data.interview.scheduledAt}:${result.data.interview.feedback}`} detail={result.data} />}</>;
 }
@@ -22,12 +22,12 @@ function DetailContent({ detail }: { detail: Detail }) {
   const i = detail.interview; const router = useRouter(); const { refresh, notify, canManage, accountId } = useRecruitment();
   const [schedule, setSchedule] = useState(false); const [tab, setTab] = useState("feedback"); const [feedback, setFeedback] = useState(i.feedback || "");
   const [status, setStatus] = useState(i.status === "REJECTED" ? "REJECTED" : "COMPLETED"); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
-  const lookups = useApi<Lookups>("lookups");
+  const lookups = useApi<Lookups>("admin/lookups");
   const closed = i.applicationStatus === "ACCEPTED" || i.applicationStatus === "REJECTED";
   const canSchedule = canManage && !closed && (i.status === "SCHEDULED" || i.status === "UNSCHEDULED");
   async function changeStage(stageId: string) {
     if (!stageId || busy) return; setBusy(true); setError("");
-    try { const updated = await api<Interview>(`applications/${i.id.applicationId}/stages`, { method: "POST", body: JSON.stringify({ stageId }) }); refresh(); notify("Đã chuyển vòng."); router.push(detailHref(updated.id)); }
+    try { const updated = await api<Interview>(`admin/applications/${i.id.applicationId}/stages`, { method: "POST", body: JSON.stringify({ stageId }) }); refresh(); notify("Đã chuyển vòng."); router.push(detailHref(updated.id)); }
     catch (e) { setError(e instanceof Error ? e.message : "Không chuyển được vòng."); } finally { setBusy(false); }
   }
   return <><Link href="/admin/interviews/schedule" className="back-link"><ArrowLeft size={15} />Quay lại lịch phỏng vấn</Link><div className="page-heading"><div><div className="eyebrow">{i.stage.name} / {i.job.title}</div><h1>Chi tiết phỏng vấn<span className="heading-dot">.</span></h1><p>{applicationLabels[i.applicationStatus]}</p></div>{canSchedule && <button className="button secondary" onClick={() => setSchedule(true)}><Pencil size={15} />{i.scheduledAt ? "Điều chỉnh lịch" : "Lên lịch phỏng vấn"}</button>}</div>
@@ -45,7 +45,7 @@ function DetailContent({ detail }: { detail: Detail }) {
       <section className="next-step"><div><h3>Chuyển vòng phỏng vấn</h3><p>Các vòng trước được giữ lại.</p></div><select aria-label="Chuyển vòng phỏng vấn" value="" disabled={busy || closed || !canManage} onChange={e => void changeStage(e.target.value)}><option value="">Chọn vòng tiếp theo</option>{lookups.data?.stages.filter(s => s.order !== null && s.order > Math.max(...detail.rounds.map(r => r.stage.order ?? -Infinity))).map(s => <option value={s.id} key={s.id}>{s.name}</option>)}</select></section>
       <section className="next-step"><div><h3>Quyết định tuyển dụng</h3><p>{applicationLabels[i.applicationStatus]}</p></div><select aria-label="Quyết định tuyển dụng" value={i.applicationStatus} disabled={busy || !canManage} onChange={async e => {
         const value = e.target.value; setBusy(true); setError("");
-        try { await api(`applications/${i.id.applicationId}/status`, { method: "PUT", body: JSON.stringify({ status: value }) }); refresh(); notify("Đã cập nhật quyết định tuyển dụng."); }
+        try { await api(`admin/applications/${i.id.applicationId}/status`, { method: "PUT", body: JSON.stringify({ status: value }) }); refresh(); notify("Đã cập nhật quyết định tuyển dụng."); }
         catch (e) { setError(e instanceof Error ? e.message : "Không cập nhật được quyết định."); } finally { setBusy(false); }
       }}>{Object.entries(applicationLabels).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></section>
       <LoadState loading={lookups.loading} error={lookups.error} reload={lookups.reload} />

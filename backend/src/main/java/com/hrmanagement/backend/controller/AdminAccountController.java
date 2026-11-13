@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hrmanagement.backend.dto.AccountViewDTO;
 import com.hrmanagement.backend.dto.AdminAccountCreateDTO;
 
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,11 +45,23 @@ public class AdminAccountController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/reset_password")
-    public ResponseEntity<Void> resetAdminPassword(
-            @RequestBody UUID accId) {
-        accountService.resetAdminPassword(accId);
+    @PostMapping("/set-inactive")
+    public ResponseEntity<Void> inactiveAccounts(
+            @RequestBody List<UUID> accIds) {
+        accountService.inactiveAccounts(accIds);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/set-active")
+    public ResponseEntity<Void> activeAccounts(
+            @RequestBody List<UUID> accIds) {
+        accountService.activeAccounts(accIds);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getDetail(@PathVariable UUID id) {
+        return ResponseEntity.ok(accountService.getAccountDetailsById(id));
     }
 
 }

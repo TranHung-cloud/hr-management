@@ -12,14 +12,14 @@ import type { Dashboard, Interview, Application, PageResult } from "@/types/api"
 export default function DashboardPage() {
   const { canManage } = useRecruitment();
   const [showSchedule, setShowSchedule] = useState(false);
-  const summary = useApi<Dashboard>("dashboard");
-  const upcoming = useApi<PageResult<Interview>>(`interviews?status=SCHEDULED&from=${today()}&size=4`);
-  const applications = useApi<PageResult<Application>>("applications?size=5");
+  const summary = useApi<Dashboard>("admin/dashboard");
+  const upcoming = useApi<PageResult<Interview>>(`admin/interviews?status=SCHEDULED&from=${today()}&size=4`);
+  const applications = useApi<PageResult<Application>>("admin/pipeline?size=5");
   const d = summary.data;
   const max = Math.max(2, ...(d?.dailyInterviews.map(day => day.count) || []));
   const countStages = d ? [...d.stages.map(s => ({ name: s.name, count: s.count })), { name: "Chưa vào vòng", count: d.applicationsWithoutStage }] : [];
   return <>
-    <div className="page-heading"><div><div className="eyebrow">{dateLabel(today())} · Giờ Việt Nam</div><h1>Tổng quan tuyển dụng<span className="heading-dot">.</span></h1><p>Theo dõi hồ sơ, lịch hẹn và kết quả tuyển dụng.</p></div><button className="button primary" disabled={!canManage} onClick={() => setShowSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
+    <div className="page-heading"><div><div className="eyebrow">{dateLabel(today())} · Giờ Việt Nam</div><h1>Tổng quan tuyển dụng<span className="heading-dot">.</span></h1></div><button className="button primary" disabled={!canManage} onClick={() => setShowSchedule(true)}><Plus size={17} />Lên lịch phỏng vấn</button></div>
     <LoadState loading={summary.loading} error={summary.error} reload={summary.reload} />
     {d && <><div className="attention-strip"><CalendarDays size={18} /><div><strong>{d.interviewsToday} buổi phỏng vấn hôm nay</strong><span>Lịch và số liệu được lấy từ hệ thống tuyển dụng.</span></div><Link href="/admin/interviews/schedule">Xem lịch <ArrowRight size={16} /></Link></div>
       <section className="metrics" aria-label="Số liệu tổng quan"><div className="metric"><span>Tin tuyển dụng đang mở</span><strong>{d.openJobs}</strong><small>Trạng thái đã đăng</small></div><div className="metric"><span>Hồ sơ ứng tuyển</span><strong>{d.totalApplications}</strong><small>{d.totalCandidates} ứng viên</small></div><div className="metric"><span>Lịch phỏng vấn sắp tới</span><strong>{d.upcomingInterviews}</strong><small>{d.interviewsToday} buổi hôm nay</small></div><div className="metric"><span>Hồ sơ đã tuyển</span><strong>{d.acceptedApplications}</strong><small>Tổng hồ sơ được chấp nhận</small></div></section>

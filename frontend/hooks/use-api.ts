@@ -5,15 +5,49 @@ import { useRecruitment } from "@/components/recruitment/provider";
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message); }
 }
-export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(`/api/backend/${path}`, { ...options, cache: "no-store", headers: { "Content-Type": "application/json", ...options.headers } });
+export async function api<T>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const response = await fetch(`/api/backend/${path}`, {
+    ...options,
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    if (response.status === 401) window.dispatchEvent(new Event("recruitment:unauthorized"));
-    throw new ApiError(response.status, error.detail || `Không tải được dữ liệu (${response.status}).`);
+
+    if (response.status === 401) {
+      window.dispatchEvent(new Event("recruitment:unauthorized"));
+    }
+
+    throw new ApiError(
+      response.status,
+      error.detail || error.message || `Lỗi HTTP ${response.status}`
+    );
   }
-  return response.json();
+
+  // Xử lý response không có body
+  if (
+    response.status === 204 ||
+    response.headers.get("content-length") === "0"
+  ) {
+    return undefined as T;
+  }
+
+  const text = await response.text();
+
+  if (!text.trim()) {
+    return undefined as T;
+  }
+
+  return JSON.parse(text) as T;
 }
+
 export function useApi<T>(path: string | null) {
   const { revision } = useRecruitment();
   const [retry, setRetry] = useState(0);

@@ -15,10 +15,15 @@ import java.util.UUID;
 @Validated
 public class RecruitmentController {
     private final RecruitmentService service;
-    public RecruitmentController(RecruitmentService service) { this.service = service; }
+
+    public RecruitmentController(RecruitmentService service) {
+        this.service = service;
+    }
 
     @GetMapping("/lookups")
-    public Lookups lookups() { return service.lookups(); }
+    public Lookups lookups() {
+        return service.lookups();
+    }
 
     @GetMapping("/dashboard")
     public Dashboard dashboard(@RequestParam(required = false) LocalDate from, @RequestParam(required = false) LocalDate to) {
