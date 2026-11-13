@@ -6,20 +6,25 @@ const uuid = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-
 function allowed(method: string, path: string) {
   if (method === "GET") {
     return /^(dashboard|lookups|pipeline|applications|interviews|accounts|roles|departments)$/.test(path)
-      || /^admin\/(accounts|dashboard|pipeline|interviews|lookups)$/.test(path)
-      || new RegExp(`^admin/accounts/${uuid}$`).test(path)
+      || /^admin\/(accounts|dashboard|pipeline|interviews|lookups|jobs)$/.test(path)
+      || /^admin\/jobs\/lookups$/.test(path)
+      || new RegExp(`^admin/(accounts|jobs)/${uuid}$`).test(path)
       || new RegExp(`^interviews/${uuid}/${uuid}/${uuid}$`).test(path);
   }
 
   if (method === "POST") {
     return new RegExp(`^applications/${uuid}/${uuid}/(stages|interviews)$`).test(path)
-      || /^admin\/accounts\/(create|reset_password|set-inactive|set-active)$/.test(path);
+      || /^admin\/accounts\/(create|reset_password|set-inactive|set-active)$/.test(path)
+      || /^admin\/jobs\/(create|close)$/.test(path);
   }
 
-  return method === "PUT" && (
-    new RegExp(`^interviews/${uuid}/${uuid}/${uuid}/(schedule|feedback)$`).test(path)
-    || new RegExp(`^applications/${uuid}/${uuid}/status$`).test(path)
-  );
+  if (method === "PUT") {
+    return new RegExp(`^interviews/${uuid}/${uuid}/${uuid}/(schedule|feedback)$`).test(path)
+      || new RegExp(`^applications/${uuid}/${uuid}/status$`).test(path)
+      || new RegExp(`^admin/jobs/${uuid}$`).test(path);
+  }
+
+  return method === "DELETE" && new RegExp(`^admin/jobs/${uuid}$`).test(path);
 }
 
 async function proxy(request: Request, { params }: { params: Promise<{ path: string[] }> }) {
@@ -28,7 +33,7 @@ async function proxy(request: Request, { params }: { params: Promise<{ path: str
   if (!session) return problem(401, "Phiên đăng nhập đã hết hạn.");
   const path = (await params).path.join("/");
   if (!allowed(request.method, path)) return problem(404, "API không tồn tại.");
-  const body = request.method === "GET" ? undefined : await request.text();
+  const body = request.method === "GET" || request.method === "DELETE" ? undefined : await request.text();
   if (body && Buffer.byteLength(body) > 16384) return problem(413, "Yêu cầu quá lớn.");
   try {
     const url = backendUrl(path);
@@ -51,19 +56,15 @@ async function proxy(request: Request, { params }: { params: Promise<{ path: str
     return new Response(responseBody || null, {
       status: upstream.status,
       headers: {
-        "Content-Type":
-          upstream.headers.get("content-type") || "application/json",
+        "Content-Type": upstream.headers.get("content-type") || "application/json",
         "Cache-Control": "no-store",
       },
     });
   } catch (error) {
     return problem(
       502,
-      error instanceof Error
-        ? error.message
-        : "Không kết nối được backend."
+      error instanceof Error ? error.message : "Không kết nối được backend."
     );
   }
-
 }
-export { proxy as GET, proxy as POST, proxy as PUT };
+export { proxy as GET, proxy as POST, proxy as PUT, proxy as DELETE };

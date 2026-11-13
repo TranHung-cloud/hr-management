@@ -17,9 +17,13 @@ import jakarta.persistence.LockModeType;
 public interface ApplicationRepository extends JpaRepository<Application, UUID>, JpaSpecificationExecutor<Application> {
     long countByAppStatus(ApplicationStatus appStatus);
 
+    long countByJobDescription_JdIdAndAppStatus(UUID jdId, ApplicationStatus appStatus);
+    
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Application a where a.candidate.candId = :candId and a.jobDescription.jdId = :jdId")
     Optional<Application> findLockedByCandidateAndJob(@Param("candId") UUID candId, @Param("jdId") UUID jdId);
 
     Optional<Application> findByCandidate_CandIdAndJobDescription_JdId(UUID candId, UUID jdId);
 }
+
+

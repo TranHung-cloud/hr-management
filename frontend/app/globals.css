@@ -381,3 +381,46 @@ button:disabled, select:disabled { opacity:.55; cursor:not-allowed; }
 .schedule-form .table-footer { padding:5px 0 16px; border-top:0; }
 .card-bottom>span:last-child { max-width:135px; text-align:right; }
 @media(max-width:720px) { .table-footer { flex-wrap:wrap; gap:12px; }.list-toolbar>select { width:100%; }.account { flex-wrap:wrap; } }
+
+/* Khung chứa danh sách kỹ năng */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 12px;
+  border: 1px solid var(--border, #d8d5cc);
+  border-radius: 12px;
+  background: #faf9f6;
+}
+
+/* Nút từng kỹ năng */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.skill-tag:hover {
+  border-color: #2f5d50;
+  background: #f0f5f3;
+}
+
+/* Trạng thái khi kỹ năng được chọn */
+.skill-tag.selected {
+  background: #2f5d50;
+  color: #ffffff;
+  border-color: #2f5d50;
+  font-weight: 600;
+}
